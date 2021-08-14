@@ -417,7 +417,7 @@ Once again we can check we are getting the correct piece of text with.
 
 We will also log the event object and this will return.
 
-> \&lt;h2 class=&quot;title&quot;\&gt;Books to Read\&lt;/h2\&gt;      
+> &lt;h2 class=&quot;title&quot;&gt;Books to Read&lt;/h2&gt;      
 > {isTrusted: true, pointerId: 1, width: 1, height: 1, pressure: 0, …}
 
 The event object hold a large amount of information on what happened.
