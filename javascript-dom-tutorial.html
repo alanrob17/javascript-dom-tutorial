@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>JavaScript DOM Tutorial</title>
+<link href="assets/css/bootstrap.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="assets/css/starter-template.css" rel="stylesheet">
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?lang=css&amp;skin=sunburst"></script>
+<style type="text/css">
+html {
+	font-size: 90.0%;
+}
+
+h2 {
+	margin-top: 60px;
+}
+
+h4, h3 {
+	padding-top: 40px!;		
+}
+
+p {
+	font-size: 1.2em;
+}
+h4 {
+	font-size: 1.4em;
+}
+
+img, pre.prettyprint {
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+}
+h1, h2, h3, h4, h5, h6 {
+    color:#007bff;
+
+}
+blockquote {
+    border-left: 4px solid #999;
+    padding-left: 1rem;
+    page-break-inside: avoid;
+}
+</style>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">JavaScript</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">JavaScript DOM Tutorial <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <div class="starter-template">
+
+<h1 id="javascript-dom-tutorial">JavaScript DOM Tutorial</h1>
+<h2 id="getelementbyid">getElementById()</h2>
+<p>We can interrogate each element in the DOM by its ID. Each element must have a unique ID.</p>
+<p>Type this into the console.</p>
+<pre class="prettyprint">    document.getElementById('book-list');
+</pre>
+<p>Will return,</p>
+<blockquote>
+<p>&lt;div id=​&quot;book-list&quot;&gt;​&lt;h2 class=​&quot;title&quot;&gt;​Books to Read​&lt;/h2&gt;​&lt;ul&gt;​…​&lt;/ul&gt;​&lt;/div&gt;​</p>
+</blockquote>
+<p>We could store this in a variable.</p>
+<pre class="prettyprint">    let bookList = document.getElementById('book-list');
+    console.log(bookList);
+</pre>
+<blockquote>
+<p>&lt;div id=​&quot;book-list&quot;&gt;&lt;h2 class=​&quot;title&quot;&gt;​Books to Read&lt;/h2&gt;&lt;ul&gt;​…​&lt;/ul&gt;​&lt;/div&gt;​</p>
+</blockquote>
+<h2 id="getelementsbyclassname">getElementsByClassName()</h2>
+<p>We can interrogate each element in the DOM by its class name.</p>
+<p>In the case of class we can have multiple elements with the class name, for example.</p>
+<pre class="prettyprint">    let titles = document.getElementsByClassName('title');
+    console.log(titles);
+</pre>
+<p>Returns two titles.</p>
+<blockquote>
+<p>HTMLCollection(2) [h1.title, h2.title]</p>
+</blockquote>
+<p><strong>Note:</strong> This looks like an array but it isn't. It is actually a HTML Collection and if we click on the caret on the left hand side we can look at all of the objects in the collection and in our case there is two.</p>
+<p>We can interrogate each element in the collection.</p>
+<pre class="prettyprint">    let titles = document.getElementsByClassName('title');
+    console.log(titles[0]);
+</pre>
+<blockquote>
+<p>&lt;h1 class=&quot;title&quot;&gt;Bookorama&lt;/h1&gt;</p>
+</blockquote>
+<h2 id="getelementsbytagname">getElementsByTagName()</h2>
+<p>Interrogate elements by their tag.</p>
+<pre class="prettyprint">    let lis = document.getElementsByTagName('li');
+    console.log(lis);
+</pre>
+<p>Will bring back 4 list elements.</p>
+<blockquote>
+<p>HTMLCollection(4) [li, li, li, li]</p>
+</blockquote>
+<p>We can get an element from the collection with,</p>
+<pre class="prettyprint">    let lis = document.getElementsByTagName('li');
+    console.log(lis[3]);
+</pre>
+<p>Returns the fourth element.</p>
+<blockquote>
+<p>&lt;li&gt;<br>
+&lt;span class=&quot;name&quot;&gt;The Master and the Margarita&lt;/span&gt;<br>
+&lt;span class=&quot;delete&quot;&gt;delete&lt;/span&gt;<br>
+&lt;/li&gt;</p>
+</blockquote>
+<h2 id="looping-through-elements">Looping through elements</h2>
+<pre class="prettyprint">    let lis = document.getElementsByTagName('li');
+    
+    for (let i = 0; i &lt; lis.length; i++) {
+        const element = lis[i];
+        console.log(element);
+    }
+</pre>
+<p>Will show each element in the collection <code>lis</code>.</p>
+<p>A better way to do this.</p>
+<pre class="prettyprint">    lis.forEach((item) =&gt; {
+        console.log(item);
+    });
+</pre>
+<p>This fails because item isn't an array.</p>
+<p>We can prove this with:</p>
+<pre class="prettyprint">    console.log(Array.isArray(titles));
+</pre>
+<p>Will return a <strong>false</strong> because <em>item</em> is a collection.</p>
+<p>We could run this bit of code.</p>
+<pre class="prettyprint">    console.log(Array.isArray(Array.from(lis)));
+</pre>
+<p>And this will produce a <strong>true</strong> because it turns <em>lis</em> into an array.</p>
+<p>We can now run the code with:</p>
+<pre class="prettyprint">    let lis = document.getElementsByTagName('li');
+
+    Array.from(lis).forEach((item) =&gt; {
+        console.log(item);
+    });
+</pre>
+<p>This is better looking code that the <strong>for()</strong> version.</p>
+<h2 id="the-query-selector">The Query Selector</h2>
+<p>We can use the <strong>querySelector()</strong> to bring back all elements within an ID or class.</p>
+<pre class="prettyprint">    let wrapper = document.querySelector('#wrapper');
+
+    console.log(wrapper);
+</pre>
+<p>Will bring back all elements enclosed in the <code>div</code> with an ID of <em>wrapper</em>.</p>
+<p><strong>Note:</strong> This is just another way of bring elements from the DOM.</p>
+<p>We can get a lot more specific than this with our query selector.</p>
+<pre class="prettyprint">    let title = document.querySelector('#book-list li:nth-child(2) .name');
+
+    console.log(title);
+</pre>
+<p>Returns:</p>
+<blockquote>
+<p>&lt;span class=&quot;name&quot;&gt;The Wise Man's Fear&lt;/span&gt;</p>
+</blockquote>
+<p>What if we wanted to grab every span tag with a class of <em>name</em>?</p>
+<pre class="prettyprint">    let books = document.querySelector('#book-list li .name');
+
+    console.log(books);
+</pre>
+<p>Returns:</p>
+<blockquote>
+<p>&lt;span class=&quot;name&quot;&gt;Name of the Wind&lt;/span&gt;</p>
+</blockquote>
+<p>It only returns the first book.</p>
+<p>We need to make a minor change.</p>
+<pre class="prettyprint">    let books = document.querySelectorAll('#book-list li .name');
+
+    console.log(books);
+</pre>
+<p><code>querySelecterAll()</code> will return a list of all books.</p>
+<blockquote>
+<p>NodeList(4) [span.name, span.name, span.name, span.name]</p>
+</blockquote>
+<p>We can iterate through this list.</p>
+<pre class="prettyprint">    let books = document.querySelectorAll('#book-list li .name');
+
+    Array.from(books).forEach((item) =&gt; {
+        console.log(item);
+    });
+</pre>
+<p>Returns:</p>
+<blockquote>
+<p>&lt;span class=&quot;name&quot;&gt;Name of the Wind&lt;/span&gt;<br>
+&lt;span class=&quot;name&quot;&gt;The Wise Man's Fear&lt;/span&gt;<br>
+&lt;span class=&quot;name&quot;&gt;Kafka on the Shore&lt;/span&gt;<br>
+&lt;span class=&quot;name&quot;&gt;The Master and the Margarita&lt;/span&gt;</p>
+</blockquote>
+<h2 id="changing-text-and-html-content">Changing Text and HTML content</h2>
+<p>First we will look at changing the <em>text</em> content.</p>
+<p><strong>Note:</strong></p>
+<pre class="prettyprint">    let books = document.querySelectorAll('#book-list li .name');
+</pre>
+<p>Returns a node list, not a HTML collection. We don't have to convert a node list into an array to use the <code>forEach()</code> method. e.g.</p>
+<pre class="prettyprint">    let books = document.querySelectorAll('#book-list li .name');
+
+    books.forEach((item) =&gt; {
+        console.log(item);
+    });
+</pre>
+<p>Returns the same result as the previous example.</p>
+<p>Now to return <em>text</em> we do the following.</p>
+<pre class="prettyprint">    let books = document.querySelectorAll('#book-list li .name');
+
+    books.forEach((book) =&gt; {
+        console.log(book.textContent);
+    });
+</pre>
+<p>Returns:</p>
+<blockquote>
+<p>Name of the Wind<br>
+The Wise Man's Fear<br>
+Kafka on the Shore<br>
+The Master and the Margarita</p>
+</blockquote>
+<p>We can use this to change the text in the DOM.</p>
+<pre class="prettyprint">    let books = document.querySelectorAll('#book-list li .name');
+
+    books.forEach((book) =&gt; {
+        book.textContent = `Title: ${book.textContent}`;
+    });
+</pre>
+<p>On the web page we see.</p>
+<blockquote>
+<p>Title: Name of the Wind<br>
+Title: The Wise Man's Fear<br>
+Title: Kafka on the Shore<br>
+Title: The Master and the Margarita</p>
+</blockquote>
+<h3 id="changing-the-html">Changing the HTML</h3>
+<p>This time we will just select the element with the ID of <code>book-list</code> and we want to see the HTML elements.</p>
+<pre class="prettyprint">    const bookList = document.querySelector('#book-list');
+
+    console.log(bookList.innerHTML);
+</pre>
+<p>Returns:</p>
+<blockquote>
+<p>&lt;h2 class=&quot;title&quot;&gt;Books to Read&lt;/h2&gt;<br>
+&lt;ul&gt;<br>
+&lt;li&gt;<br>
+&lt;span class=&quot;name&quot;&gt;Title: Name of the Wind&lt;/span&gt;<br>
+&lt;span class=&quot;delete&quot;&gt;delete&lt;/span&gt;<br>
+&lt;/li&gt;<br>
+&lt;li&gt;<br>
+&lt;span class=&quot;name&quot;&gt;Title: The Wise Man's Fear&lt;/span&gt;<br>
+&lt;span class=&quot;delete&quot;&gt;delete&lt;/span&gt;<br>
+&lt;/li&gt;<br>
+&lt;li&gt;<br>
+&lt;span class=&quot;name&quot;&gt;Title: Kafka on the Shore&lt;/span&gt;<br>
+&lt;span class=&quot;delete&quot;&gt;delete&lt;/span&gt;<br>
+&lt;/li&gt;<br>
+&lt;li&gt;<br>
+&lt;span class=&quot;name&quot;&gt;Title: The Master and the Margarita&lt;/span&gt;
+&lt;span class=&quot;delete&quot;&gt;delete&lt;/span&gt;<br>
+&lt;/li&gt;<br>
+&lt;/ul&gt;</p>
+</blockquote>
+<p>To change the content we can do this.</p>
+<pre class="prettyprint">    const bookList = document.querySelector('#book-list');
+
+    bookList.innerHTML = '&lt;h2&gt;Books and more books...&lt;/h2&gt;';
+</pre>
+<p>Changes the content to.</p>
+<p><img src="assets/images/dom/innerHTML.jpg" alt="Changing inner HTML" title="Changing inner HTML"></p>
+<h2 id="appending-to-html">Appending to HTML</h2>
+<p>It is simple to append more content.</p>
+<pre class="prettyprint">    const bookList = document.querySelector('#book-list');
+
+    bookList.innerHTML = '&lt;h2&gt;Books and more books...&lt;/h2&gt;';
+    bookList.innerHTML += '&lt;p&gt;Midnight in Chernoyl&lt;/p&gt;';
+</pre>
+<p><img src="assets/images/dom/append-content.jpg" alt="Appending content" title="Appending content"></p>
+<h2 id="dom-nodes">DOM nodes</h2>
+<p>All elements in the DOM are node types. You can find the node type with the following code.</p>
+<pre class="prettyprint">    const banner = document.querySelector('#page-banner');
+
+    console.log(`#page-banner nodeType is: ${banner.nodeType}`);
+</pre>
+<p>This returns the following but isn't that useful.</p>
+<blockquote>
+<p>#page-banner nodeType is: 1</p>
+</blockquote>
+<p>If you have a look at this page it will provide more information.</p>
+<p>https://www.w3schools.com/jsref/prop_node_nodetype.asp</p>
+<p><strong>1</strong> denotes that the node is an element.</p>
+<p>Change the console log to:</p>
+<pre class="prettyprint">    const banner = document.querySelector('#page-banner');
+
+    console.log(`#page-banner node name is: ${banner.nodeName}`);
+</pre>
+<p>Returns:</p>
+<blockquote>
+<p>#page-banner nodeName is: DIV</p>
+</blockquote>
+<p>This is more helpful.</p>
+<p>We can also find out of the node has any child nodes.</p>
+<pre class="prettyprint">    const banner = document.querySelector('#page-banner');
+
+    console.log(`#page-banner node has child nodes: ${banner.hasChildNodes()}`);
+</pre>
+<p>Returns:</p>
+<blockquote>
+<p>#page-banner node has child nodes: true</p>
+</blockquote>
+<h2 id="cloning-a-node">Cloning a Node</h2>
+<p>We can clone a node with the following code.</p>
+<pre class="prettyprint">    const clonedBanner = banner.cloneNode(true);
+    console.log(clonedBanner);
+</pre>
+<p>Returns:</p>
+<blockquote>
+<p>&lt;div id=&quot;page-banner&quot;&gt;<br>
+&lt;h1 class=&quot;title&quot;&gt;Bookorama&lt;/h1&gt;<br>
+&lt;p&gt;Books for Ninjas&lt;/p&gt;<br>
+&lt;form id=&quot;search-books&quot;&gt;<br>
+&lt;input type=&quot;text&quot; placeholder=&quot;Search books...&quot; /&gt;
+&lt;/form&gt;<br>
+&lt;/div&gt;</p>
+</blockquote>
+<p>Later on we will see how to add the cloned node to the web page.</p>
+<h2 id="dom-events-and-removing-content">DOM Events and removing content</h2>
+<p>Event listeners can be added to anything on the DOM. For example we could add an event listener to a piece of text on the page and print a console message when that text is clicked.</p>
+<p>First check that we can get to the piece of text.</p>
+<pre class="prettyprint">    let h2 = document.querySelector('#book-list h2');
+    console.log(h2);
+</pre>
+<p>There a couple of <code>h2</code> elements on the page so we have to target the <code>h2</code> that we are after and we can do this with <strong>#book-list h2</strong>. This says target the <code>h2</code> with in the <code>div</code> with an ID of <em>book-list</em>.</p>
+<pre class="prettyprint">    console.log(h2.innerHTML);
+</pre>
+<p>Returns:</p>
+<blockquote>
+<p>Books to Read</p>
+</blockquote>
+<p>Now that we are targeting the correct piece of text we can add an event listener.</p>
+<p>Once again we can check we are getting the correct piece of text with.</p>
+<pre class="prettyprint">    let h2 = document.querySelector('#book-list h2');
+
+    h2.addEventListener('click', (e) =&gt; {
+        console.log(e.target);
+        console.log(e);
+    });
+</pre>
+<p><strong>e</strong> is the event parameter.</p>
+<p><strong>target</strong> is a property on the event object and it is going to tell us which element was clicked and in our case it was the piece of text.</p>
+<p>We will also log the event object and this will return.</p>
+<blockquote>
+<p>&amp;lt;h2 class=&quot;title&quot;&amp;gt;Books to Read&amp;lt;/h2&amp;gt;<br>
+ {isTrusted: true, pointerId: 1, width: 1, height: 1, pressure: 0, …}</p>
+</blockquote>
+<p>The event object hold a large amount of information on what happened.</p>
+<p>for example.</p>
+<blockquote>
+<p>clientX: 369<br>
+clientY: 240</p>
+</blockquote>
+<p>Is the coordinates of the screen where the mouse button was pressed.</p>
+<blockquote>
+<p>shiftKey: false</p>
+</blockquote>
+<p>Tells us that the shift key wasn't pressed when we clicked the mouse button.</p>
+<p>We can also get this value and program against it.</p>
+<pre class="prettyprint">    if (e.shiftKey === true) {
+        // then do something
+    }
+</pre>
+<p>Now we are going to put event listeners on all of the <code>delete</code> buttons. First we have to get the collection of <code>delete</code> buttons and turn them into an array. Then if someone clicks on a particular <code>delete</code> button we will remove that <code>li</code> element.</p>
+<pre class="prettyprint">    let buttons = document.querySelectorAll('#book-list .delete');
+
+    Array.from(buttons).forEach((button) =&gt; {
+        button.addEventListener('click', (e) =&gt; {
+            const li = e.target.parentElement;
+            li.parentNode.removeChild(li);
+        });
+    });
+</pre>
+<p><em>buttons</em> is the collection of delete buttons so we need to select all buttons.</p>
+<p>Create a <code>forEach()</code> loop so that we can iterate thourh the buttons to find the <code>delete</code> button that was clicked on.</p>
+<p>Add an event listener to each button. If the button was <em>clicked</em> then this is the <code>li</code> element we want to remove.</p>
+<p>From here we want to select the parent element (the <code>li</code>). We do this with.</p>
+<pre class="prettyprint">    const li = e.target.parentElement;
+</pre>
+<p>Now we have to find the parent element of the <code>li</code> so that we can remove its child  (<code>li</code>).</p>
+<pre class="prettyprint">    li.parentNode.removeChild(li);
+</pre>
+<p>This will remove the correct <code>li</code>.</p>
+<h3 id="prevent-default-behaviour">Prevent default behaviour</h3>
+<p>We can also use an event listener to stop an event from happening. for example.</p>
+<p>Add a <code>href</code> element to the DOM.</p>
+<pre class="prettyprint">    &lt;a href=&quot;https://www.google.com&quot;&gt;&lt;/a&gt;
+</pre>
+<p>Obviously when we click on this it will navigate to Google.com. What if we don't want this to happen? We want to prevent its default behaviour.</p>
+<pre class="prettyprint">    const link = document.querySelector('#page-banner a');
+
+    link.addEventListener('click', (e) =&gt; {
+        e.preventDefault();
+
+        console.log('Navigation to ', e.target.hostname, ' has been suspended.');
+    });
+</pre>
+<p>We click on the link and stops the default behaviour and returns this message.</p>
+<blockquote>
+<p>Navigation to www.google.com has been suspended.</p>
+</blockquote>
+<h2 id="event-bubbling">Event bubbling</h2>
+<p>The previous code isn't the most efficient code we can use. At the moment it only has to check through 4 books to find the element to delete. Imagine if there were hundreds of books then it would be very time consuming.</p>
+<p>This is where we could use event bubbling to improve the code.</p>
+<pre class="prettyprint">    let list = document.querySelector('#book-list ul');
+
+    list.addEventListener('click', (e) =&gt; {
+        if (e.target.className === 'delete') {
+            const li = e.target.parentElement;
+            // li.parentNode.removeChild(li); // would work, but even better,
+            list.removeChild(li);
+        }
+    });
+</pre>
+<p>In this case we add the list of books to list by selecting the <code>ul</code> tag as the parent tag. We then add an event listener to the <code>ul</code> tag. In the <strong>if</strong> statement we check to see if an element in the list has a class of <em>delete</em>  and was clicked. We bubble up to the <code>li</code> tag using the <em>e.target.parentElement</em> property. We the remove the list element using the <em>list.removeChild(li)</em> method.</p>
+<h3 id="interacting-with-forms">Interacting with forms</h3>
+<p>the first trick we can do with forms is run the following command in the console window.</p>
+<pre class="prettyprint">    document.forms
+</pre>
+<p>In our case this will return two HTML forms collections, search-books and add-books.</p>
+<blockquote>
+<p>HTMLCollection(2) [form#search-books, form#add-book, search-books: form#search-books, add-book: form#add-book]</p>
+</blockquote>
+<p>We can select one with.</p>
+<pre class="prettyprint">    document.forms[0]
+</pre>
+<p>Or, a more preferable way.</p>
+<pre class="prettyprint">    document.forms['add-book']
+</pre>
+<p>We now want to be able to add a new book into our book list. We can do this by grabbing the form.</p>
+<pre class="prettyprint">    const addForm = document.forms['add-book'];
+
+    addForm.addEventListener('submit', (e) =&gt; {
+        e.preventDefault();
+
+        const value = addForm.querySelector('input[type=&quot;text&quot;]').value;
+        console.log(value);
+    });
+</pre>
+<p>Returns:</p>
+<blockquote>
+<p>My Brilliant Friend</p>
+</blockquote>
+<p>Once we get the form value we can add a <code>submit</code> event listener to that form. We need to prevent the default page from refreshing with <em>e.preventDefault();</em>.</p>
+<p>Now we need to get the text that is entered into the input form with.</p>
+<pre class="prettyprint">    const value = addForm.querySelector('input[type=&quot;text&quot;]').value;
+</pre>
+<p>We can log out the value entered into the input field from here. We are now ready to append an new <code>li</code> tag with the new book title.</p>
+<h2 id="creating-elements">Creating elements</h2>
+<p>Final code for appending a new element to the DOM.</p>
+<pre class="prettyprint">    // add book
+    const addForm = document.forms['add-book'];
+
+    addForm.addEventListener('submit', (e) =&gt; {
+        e.preventDefault();
+
+        const value = addForm.querySelector('input[type=&quot;text&quot;]').value;
+
+        // create elements
+        const li = document.createElement('li');
+        const bookName = document.createElement('span');
+        const deleteButton = document.createElement('span');
+
+        // add content
+        deleteButton.textContent = 'delete';
+        deleteButton.className = 'delete';
+        bookName.textContent = value;
+        bookName.className = 'name';
+
+        // append to DOM
+        li.appendChild(bookName);
+        li.appendChild(deleteButton);
+        list.appendChild(li);
+    });
+</pre>
+<p>We need to create elements with <code>document.createElement()</code>.</p>
+<pre class="prettyprint">    const li = document.createElement('li');
+    const bookName = document.createElement('span');
+    const deleteButton = document.createElement('span');
+</pre>
+<p>Now we can add content and give that content class names for CSS styling.</p>
+<pre class="prettyprint">    deleteButton.textContent = 'delete';
+    deleteButton.className = 'delete';
+    bookName.textContent = value;
+    bookName.className = 'name';
+</pre>
+<p>Finally we need to append our elements to the DOM. First we append the elements to the <code>li</code> element and then we append this to the list variable that we created previously from the <code>ul</code> that we use for the book list.</p>
+<pre class="prettyprint">    li.appendChild(bookName);
+    li.appendChild(deleteButton);
+    list.appendChild(li);
+</pre>
+<p>Now we can add a new book title.</p>
+<p><img src="assets/images/dom/add-book.jpg" alt="Add a new book" title="Add a new book"></p>
+<h2 id="changing-styles-and-classes">Changing styles and classes</h2>
+<p>We can add styles on the fly in the CSS.</p>
+<p>Previously we had created a variable <em>list</em> from the query selector. We can then change styles.</p>
+<pre class="prettyprint">    list.style.color = 'red';
+</pre>
+<p><img src="assets/images/dom/console-styles.jpg" alt="Adding styles to elements" title="Adding styles to elements"></p>
+<p>In the last section we applied class names with the following code.</p>
+<pre class="prettyprint">    deleteButton.className = 'delete';
+    bookName.className = 'name';
+</pre>
+<p>There is a better way that will allow us to add multiple classes to one element.</p>
+<pre class="prettyprint">    deleteButton.classList.add = 'delete';
+    bookName.classList.add = 'name';
+</pre>
+<p>Now with this code we could add another class to an element.</p>
+<pre class="prettyprint">    deleteButton.classList.add = 'delete';
+    bookName.classList.add = 'name';
+    bookName.classList.add = 'test';
+</pre>
+<blockquote>
+<p>&lt;span class=&quot;name test&quot;&gt;The Master and the Margarita&lt;/span&gt;</p>
+</blockquote>
+<p>We can remove classes with</p>
+<p>We need to do one more thing before we are finished.</p>
+<pre class="prettyprint">    bookName.classList.remove = 'test';
+</pre>
+<h2 id="adding-attributes">Adding attributes</h2>
+<p>We are not going to use attributes in our code but it is good to be aware of them.</p>
+<pre class="prettyprint">    // add classes
+    deleteButton.classList.add('delete');
+    bookName.classList.add('name');
+    bookName.classList.add('test');
+
+    // attributes
+    console.log(bookName.getAttribute('class'));
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>name test</p>
+</blockquote>
+<p>We can also set attributes.</p>
+<pre class="prettyprint">    bookName.setAttribute('class', 'test2');
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>&lt;span class=&quot;test2&quot;&gt;The Master and the Margarita&lt;/span&gt;</p>
+</blockquote>
+<p><strong>Note:</strong> we could have added two classes if we had wanted to.</p>
+<pre class="prettyprint">    bookName.setAttribute('class', 'test2 test3');
+</pre>
+<p>We can even do a check to see if an element has an attribute.</p>
+<pre class="prettyprint">    console.log(bookName.hasAttribute('class'));
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>true</p>
+</blockquote>
+<p>Once again we can also remove an attribute.</p>
+<pre class="prettyprint">    bookName.hasAttribute('class');
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>&lt;span&gt;IQ84&lt;/span&gt;</p>
+</blockquote>
+<h2 id="checkbox-and-change-events">Checkbox and change events</h2>
+<p>As an example we want to add a checkbox to remove all of our books from the list and then when we uncheck the box we want to see our book list again.</p>
+<p>First we will will add some HTML to the index page.</p>
+<pre class="prettyprint">	&lt;form id=&quot;add-book&quot;&gt;
+		&lt;input type=&quot;checkbox&quot; id=&quot;hide&quot; /&gt;
+		&lt;label for=&quot;hide&quot;&gt;Hide all books&lt;/label&gt;
+		&lt;input type=&quot;text&quot; placeholder=&quot;Add a book...&quot; /&gt;
+		&lt;button&gt;Add&lt;/button&gt;
+	&lt;/form&gt;
+</pre>
+<p>Now some CSS.</p>
+<pre class="prettyprint">    #add-book #hide {
+        width: 30px;
+    }
+
+    #add-book label {
+        line-height: 52px;
+    }
+</pre>
+<p>When we check we want to hide the books, when we uncheck we want to see the books.</p>
+<pre class="prettyprint">    // hide books
+    const hideBox = document.querySelector('#hide');
+    hideBox.addEventListener('change', (e) =&gt; {
+        if (hideBox.checked) {
+            list.style.display = 'none';
+        } else {
+            list.style.display = 'initial';
+        }
+    });
+</pre>
+<p>Checking displays.</p>
+<p><img src="assets/images/dom/hide-checkbox.jpg" alt="Hide book list" title="Hide book list"></p>
+<h2 id="creating-a-search-filter">Creating a search filter</h2>
+<pre class="prettyprint">    // search books
+    const searchBar = document.forms['search-books'].querySelector('input');
+    searchBar.addEventListener('keyup', (e) =&gt; {
+        const term = e.target.value.toLowerCase();
+        const books = list.getElementsByTagName('li');
+        Array.from(books).forEach((book) =&gt; {
+            const title = book.firstElementChild.textContent;
+
+            if (title.toLowerCase().indexOf(term) != -1) {
+                book.style.display = 'block';
+            } else {
+                book.style.display = 'none';
+            }
+        });
+    });
+</pre>
+<p>First we want grab the form with the ID <em>search-books</em> and select the input field.</p>
+<p>We add an event listener to listen for keypresses in the input field.</p>
+<p>Next we get a list of all books by their <code>li</code> tag.</p>
+<p>We iterate through each book to see if they have the text that we are searching for.</p>
+<p>We set the style to block if the title exists or none if the title doesn't exist.</p>
+<h2 id="creating-tabbed-content">Creating tabbed content</h2>
+<p>This is the HTML code for our tabbed content.</p>
+<pre class="prettyprint">    &lt;div id=&quot;tabbed-content&quot;&gt;
+    	&lt;ul class=&quot;tabs&quot;&gt;
+    	  &lt;li data-target=&quot;#about&quot; class=&quot;active&quot;&gt;About&lt;/li&gt;
+    	  &lt;li data-target=&quot;#contact&quot;&gt;Contact&lt;/li&gt;
+    	&lt;/ul&gt;
+    	&lt;div class=&quot;panel active&quot; id=&quot;about&quot;&gt;
+    	  &lt;p&gt;Content for about tab...&lt;/p&gt;
+    	  &lt;p&gt;What we are about...&lt;/p&gt;
+    	&lt;/div&gt;
+    	&lt;div class=&quot;panel&quot; id=&quot;contact&quot;&gt;
+    	  &lt;p&gt;Content for contact tab...&lt;/p&gt;
+    	  &lt;p&gt;This is how to contact us...&lt;/p&gt;
+    	&lt;/div&gt;
+    &lt;/div&gt;
+</pre>
+<p>Now we can manipulate the tabbed content to hide one tab while showing the other tabs content.</p>
+<pre class="prettyprint">    // tabbed content
+    const tabs = document.querySelector('.tabs');
+    const panels = document.querySelectorAll('.panel');
+
+    tabs.addEventListener('click', (e) =&gt; {
+        if (e.target.tagName === 'LI') {
+            const targetPanel = document.querySelector(e.target.dataset.target);
+            Array.from(panels).forEach((panel) =&gt; {
+                if (panel === targetPanel) {
+                    panel.classList.add('active');
+                } else {
+                    panel.classList.remove('active');
+                }
+            });
+        }
+    });
+</pre>
+<p>When we open the page the <em>About</em> content is showing because the <code>div</code> is active.</p>
+<pre class="prettyprint">    &lt;div class=&quot;panel active&quot; id=&quot;about&quot;&gt;
+</pre>
+<p>We select the <code>tabs</code> element.</p>
+<pre class="prettyprint">    &lt;ul class=&quot;tabs&quot;&gt;
+      &lt;li data-target=&quot;#about&quot; class=&quot;active&quot;&gt;About&lt;/li&gt;
+      &lt;li data-target=&quot;#contact&quot;&gt;Contact&lt;/li&gt;
+    &lt;/ul&gt;
+</pre>
+<p>With the selector.</p>
+<pre class="prettyprint">    const tabs = document.querySelector('.tabs');
+</pre>
+<p>We also select the panel class elements by.</p>
+<pre class="prettyprint">    const panels = document.querySelectorAll('.panel');
+</pre>
+<p>We add an event listener to tell us when one of the <code>date-target</code> elements has been clicked. Frome here we can work out which <code>li</code> was selected so we can make that <code>li</code> element active and hide the other <code>li</code> element.</p>
+<pre class="prettyprint">    if (e.target.tagName === 'LI') {
+        const targetPanel = document.querySelector(e.target.dataset.target);
+        Array.from(panels).forEach((panel) =&gt; {
+            if (panel === targetPanel) {
+                panel.classList.add('active');
+            } else {
+                panel.classList.remove('active');
+            }
+        });
+    }
+</pre>
+<p>When the first page is opened the About tabbed content is showing because it is active.</p>
+<p><img src="assets/images/dom/about.jpg" alt="About tabbed content" title="About tabbed content"></p>
+<p>When we click on the content tab.</p>
+<p><img src="assets/images/dom/contact.jpg" alt="Contact tabbed content" title="Contact tabbed content"></p>
+<h3 id="appjs-final-code">app.js final code</h3>
+<pre class="prettyprint">    // delete book
+    const list = document.querySelector('#book-list ul');
+
+    list.addEventListener('click', (e) =&gt; {
+        if (e.target.className === 'delete') {
+            const li = e.target.parentElement;
+            // li.parentNode.removeChild(li); // would work, but even better,
+            list.removeChild(li);
+        }
+    });
+
+    // add book
+    const addForm = document.forms['add-book'];
+
+    addForm.addEventListener('submit', (e) =&gt; {
+        e.preventDefault();
+
+        let value = addForm.querySelector('input[type=&quot;text&quot;]').value;
+
+        // create elements
+        const li = document.createElement('li');
+        const bookName = document.createElement('span');
+        const deleteButton = document.createElement('span');
+
+        // add content
+        deleteButton.textContent = 'delete';
+        bookName.textContent = value;
+
+        // add classes
+        deleteButton.classList.add('delete');
+        bookName.classList.add('name');
+        bookName.classList.add('test');
+
+        // attributes
+        console.log(bookName.getAttribute('class'));
+        bookName.setAttribute('class', 'test2');
+        console.log(bookName.hasAttribute('class'));
+        bookName.removeAttribute('class');
+
+        // append to DOM
+        li.appendChild(bookName);
+        li.appendChild(deleteButton);
+        list.appendChild(li);
+        value.textContent = '';
+    });
+
+    // hide books
+    const hideBox = document.querySelector('#hide');
+    hideBox.addEventListener('change', (e) =&gt; {
+        if (hideBox.checked) {
+            list.style.display = 'none';
+        } else {
+            list.style.display = 'initial';
+        }
+    });
+
+    // search books
+    const searchBar = document.forms['search-books'].querySelector('input');
+    searchBar.addEventListener('keyup', (e) =&gt; {
+        const term = e.target.value.toLowerCase();
+        const books = list.getElementsByTagName('li');
+        Array.from(books).forEach((book) =&gt; {
+            const title = book.firstElementChild.textContent;
+
+            if (title.toLowerCase().indexOf(term) != -1) {
+                book.style.display = 'block';
+            } else {
+                book.style.display = 'none';
+            }
+        });
+    });
+
+    // tabbed content
+    const tabs = document.querySelector('.tabs');
+    const panels = document.querySelectorAll('.panel');
+
+    tabs.addEventListener('click', (e) =&gt; {
+        if (e.target.tagName === 'LI') {
+            const targetPanel = document.querySelector(e.target.dataset.target);
+            Array.from(panels).forEach((panel) =&gt; {
+                if (panel === targetPanel) {
+                    panel.classList.add('active');
+                } else {
+                    panel.classList.remove('active');
+                }
+            });
+        }
+    });
+</pre>
+
+</div><!-- starter-template -->
+</div><!-- /.container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"/>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+</body>
+</html>
