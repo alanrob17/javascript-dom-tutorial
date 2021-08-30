@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>JavaScript DOM crash course</title>
+<link href="assets/css/bootstrap.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="assets/css/starter-template.css" rel="stylesheet">
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?lang=css&amp;skin=sunburst"></script>
+<style type="text/css">
+html {
+	font-size: 80.0%;
+}
+
+h2 {
+	margin-top: 60px;
+}
+
+h4, h3 {
+	padding-top: 40px!;		
+}
+
+p {
+	font-size: 1.2em;
+}
+h4 {
+	font-size: 1.4em;
+}
+
+img, pre.prettyprint {
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+}
+h1, h2, h3, h4, h5, h6 {
+    color:#007bff;
+
+}
+blockquote {
+    border-left: 4px solid #999;
+    padding-left: 1rem;
+    page-break-inside: avoid;
+}
+</style>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">JavaScript</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">DOM crash course <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <div class="starter-template">
+
+<h1 id="javascript-dom-crash-course">JavaScript DOM Crash Course</h1>
+<h2 id="using-the-console">Using the console</h2>
+<p>To see the complete Document Object Model (DOM)</p>
+<pre class="prettyprint">    console.dir(document);
+</pre>
+<p>This will show a list of all nodes in the DOM.</p>
+<p>We can look at parts of the DOM.</p>
+<pre class="prettyprint">    console.log(document.domain);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>127.0.0.1</p>
+</blockquote>
+<pre class="prettyprint">    console.log(document.URL);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>http://127.0.0.1:5500/index.html</p>
+</blockquote>
+<pre class="prettyprint">    console.log(document.title);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>Item Lister</p>
+</blockquote>
+<p>You can also change content in the DOM.</p>
+<pre class="prettyprint">    document.title = 123;
+</pre>
+<p>Changes the documents title to <strong>123</strong>.</p>
+<pre class="prettyprint">    console.log(document.head);
+</pre>
+<p>Gets the header part of the document.</p>
+<pre class="prettyprint">    console.log(document.all);
+</pre>
+<p><img src="assets/images/dom/document-all.jpg" alt="document-all" title="document-all"></p>
+<p><strong>document-all</strong> is really interesting. It gets a complete list of all nodes in the document and numbers each node from 0 which is the HTML node.</p>
+<p>You can't rely on the node numbering because if you add an element to the document it will renumber the document.</p>
+<h3 id="using-node-numbering">Using node numbering</h3>
+<pre class="prettyprint">    console.log(document.all[10]);
+</pre>
+<p>will return Node number 11 and in our case this is.</p>
+<blockquote>
+<p>h1#header-title</p>
+</blockquote>
+<p>Once again we can change this element.</p>
+<pre class="prettyprint">    document.all[10].textContent = 'Hello';
+</pre>
+<p>This changes the header title to <strong>Hello</strong>.</p>
+<p><img src="assets/images/dom/header-item.jpg" alt="Header item" title="Header item"></p>
+<p>You can have multiple forms on a page. To get to a particular form.</p>
+<pre class="prettyprint">    console.log(document.forms[0]);
+</pre>
+<p>Will bring up the first form on the page.</p>
+<p>Get a list of links on your form.</p>
+<pre class="prettyprint">    console.log(document.links);
+</pre>
+<p>This will bring back a HTML collection of links on the page.</p>
+<p>Similar to this you can get a list of images on a page.</p>
+<pre class="prettyprint">    console.log(document.images);
+</pre>
+<p>Once again this is a HTML collection so if you want to iterate through the images you will have to turn the collection into an array.</p>
+<pre class="prettyprint">    const images = document.images;
+
+    Array.from(images).forEach((image) =&gt; {
+        console.log(image.src);
+    });
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>http://127.0.0.1:5500/assets/images/dom/about.jpg<br>
+http://127.0.0.1:5500/assets/images/dom/add-book.jpg<br>
+http://127.0.0.1:5500/assets/images/dom/append-content.jpg<br>
+http://127.0.0.1:5500/assets/images/dom/console-styles.jpg<br>
+http://127.0.0.1:5500/assets/images/dom/contact.jpg<br>
+http://127.0.0.1:5500/assets/images/dom/hide-checkbox.jpg<br>
+http://127.0.0.1:5500/assets/images/dom/innerHTML.jpg</p>
+</blockquote>
+<h2 id="get-elements-by-id">Get elements by ID</h2>
+<p>Allows you to select elements by their ID.</p>
+<pre class="prettyprint">    console.log(document.getElementById('header-title'));
+</pre>
+<p>Returns the element with an ID of <em>header-title</em>.</p>
+<pre class="prettyprint">    var headerTitle = document.getElementById('header-title');
+    console.log(headerTitle.textContent);
+    console.log(headerTitle.innerHTML);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>Item Lister 123<br>
+Item Lister &lt;span style=&quot;display:none&quot;&gt;123&lt;/span&gt;</p>
+</blockquote>
+<p>You can modify the title.</p>
+<pre class="prettyprint">    // getElementById
+    console.log(document.getElementById('header-title'));
+    var headerTitle = document.getElementById('header-title');
+    var header = document.getElementById('main-header');
+    headerTitle.textContent = 'Hello';
+    headerTitle.innerText = 'Goodbye';
+    console.log(headerTitle.innerText);
+    headerTitle.innerHTML = '&lt;h3&gt;Hello&lt;/h3&gt;';
+    header.style.borderBottom = 'solid 3px #000';
+</pre>
+<p><img src="assets/images/dom/change-header.jpg" alt="Change header" title="Change header"></p>
+<p>Change the text with <em>headerTitle.textContent</em>.</p>
+<p>Change the HTML with <em>headerTitle.innerHTML</em>.</p>
+<h2 id="get-elements-by-class-name">Get elements by class name</h2>
+<pre class="prettyprint">    var items = document.getElementsByClassName('list-group-item');
+    console.log(items);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>HTMLCollection(4) [li.list-group-item, li.list-group-item, li.list-group-item, li.list-group-item]</p>
+</blockquote>
+<p>Once again this is a HTML collection so you if you need to iterate you have to change the collection into an array.</p>
+<pre class="prettyprint">    Array.from(items).forEach((item) =&gt; {
+        console.log(item.innerText);
+    });
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>Item 1<br>
+Item 2<br>
+Item 3<br>
+Item 4</p>
+</blockquote>
+<p>You can select a particular item in the collection.</p>
+<pre class="prettyprint">    var items = document.getElementsByClassName('list-group-item');
+
+    console.log(items[1]);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>&lt;li class=&quot;list-group-item&quot;&gt;Item 2&lt;/li&gt;</p>
+</blockquote>
+<p>Or change the text.</p>
+<pre class="prettyprint">    var items = document.getElementsByClassName('list-group-item');
+
+    items[1].textContent = 'Hello 2';
+</pre>
+<p><img src="assets/images/dom/change-item.jpg" alt="Change text content" title="Change text content"></p>
+<p>You can also change CSS styles.</p>
+<pre class="prettyprint">    var items = document.getElementsByClassName('list-group-item');
+    items[1].textContent = 'Hello 2';
+    items[1].style.fontWeight = 'bold';
+    items[1].style.backgroundColor = 'yellow';
+</pre>
+<p><img src="assets/images/dom/change-styles.jpg" alt="Change styles" title="Change styles"></p>
+<p>If you wanted to change style for each element in the list the following code won't work.</p>
+<pre class="prettyprint">    var items = document.getElementsByClassName('list-group-item');
+
+    // Gives error
+    items.style.backgroundColor = '#f4f4f4';
+</pre>
+<p>You have to iterate through the collection.</p>
+<pre class="prettyprint">    var items = document.getElementsByClassName('list-group-item');
+
+    for (var i = 0; i &lt; items.length; i++) {
+        items[i].style.backgroundColor = '#f4f4f4';
+    }
+</pre>
+<p><img src="assets/images/dom/change-all-item-styles.jpg" alt="Change all item styles" title="Change all item styles"></p>
+<h2 id="get-elements-by-tag-name">Get elements by tag name</h2>
+<pre class="prettyprint">    var li = document.getElementsByTagName('li');
+    console.log(li);
+    console.log(li[1]);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>HTMLCollection(4) [li.list-group-item, li.list-group-item, li.list-group-item, li.list-group-item]<br>
+li.list-group-item</p>
+</blockquote>
+<p>The first console line brings back a HTML collection of four elements.</p>
+<p>The next console line gets the second item in the collection.</p>
+<h2 id="query-selector">Query selector</h2>
+<p>We can also get a single item by using the <code>querySelector()</code> function.</p>
+<pre class="prettyprint">    var header = document.querySelector('#main-header');
+    header.style.borderBottom = 'solid 4px red';
+</pre>
+<p><img src="assets/images/dom/query-selector.jpg" alt="Change styles using the query selector" title="Change styles using the query selector"></p>
+<p>We can also change text after we have selected an element.</p>
+<pre class="prettyprint">    var input = document.querySelector('input');
+    input.value = 'Hello World'
+</pre>
+<p><img src="assets/images/dom/changing-text.jpg" alt="Change text using the query selector" title="Change text using the query selector"></p>
+<p>You can also change the button text whit a query selector.</p>
+<pre class="prettyprint">    var submit = document.querySelector('input[type=&quot;submit&quot;]');
+    submit.value=&quot;SEND&quot;
+</pre>
+<p><img src="assets/images/dom/change-button-text.jpg" alt="Change button text using the query selector" title="Change button text using the query selector"></p>
+<p>The <code>.querySelector()</code> function only works on one element at a time. We can show this with the following code.</p>
+<pre class="prettyprint">    var item = document.querySelector('.list-group-item');
+    item.style.color = 'red';
+</pre>
+<p>Only changes the first item in the item collection.</p>
+<p><img src="assets/images/dom/first-item.jpg" alt="Query selector only changes the first item" title="Query selector only changes the first item"></p>
+<p>To change the last item in the list use the last-child selector.</p>
+<pre class="prettyprint">    var lastItem = document.querySelector('.list-group-item:last-child');
+    lastItem.style.color = 'blue';
+</pre>
+<p><img src="assets/images/dom/last-item.jpg" alt="Last item query selector" title="Last item query selector"></p>
+<p>You can also use the nth-child() selector to select a particular element in a list.</p>
+<pre class="prettyprint">    var secondItem = document.querySelector('.list-group-item:nth-child(2)');
+    secondItem.style.color = 'coral';
+</pre>
+<p><img src="assets/images/dom/nth-child.jpg" alt="nth child item" title="nth child item"></p>
+<p><strong>Note:</strong> this seems to work on a 1 based system not a zero based system.</p>
+<h2 id="getqueryselectorall">querySelectorAll()</h2>
+<p>If you want to select all elements in a collection use the <code>querySelectorAll()</code> function.</p>
+<pre class="prettyprint">    var titles = document.querySelectorAll('.title');
+
+    console.log(titles);
+    titles[0].textContent = 'Hello';
+    titles[1].textContent = 'World';
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>NodeList(2) [h2.title, h2.title]</p>
+</blockquote>
+<p><img src="assets/images/dom/query-selector-all.jpg" alt="Query selector all" title="Query selector all"></p>
+<h3 id="iterate-through-all-selected-elements">iterate through all selected elements</h3>
+<pre class="prettyprint">    let items = document.querySelectorAll('li');
+
+    console.log(items);
+
+    items.forEach((item) =&gt; {
+        console.log(item.innerText);
+    });
+</pre>
+<blockquote>
+<p>NodeList(4) [li.list-group-item, li.list-group-item, li.list-group-item, li.list-group-item]<br>
+Item 1<br>
+Item 2<br>
+Item 3<br>
+Item 4</p>
+</blockquote>
+<p>As the selected elements are in a node list we don't have to use Array.from() to change the elements into an array.</p>
+<p>Another way of iterating through elements is to use a <code>for</code> loop. The following code will add a background colour to each item element. This is handy bit of code to add alternating colours to grid rows.</p>
+<pre class="prettyprint">    var odd = document.querySelectorAll('li:nth-child(odd)');
+    var even = document.querySelectorAll('li:nth-child(even)');
+
+    for (var i = 0; i &lt; odd.length; i++) {
+        odd[i].style.backgroundColor = '#f4f4f4';
+        even[i].style.backgroundColor = '#ccc';
+    }
+</pre>
+<p><img src="assets/images/dom/alternating-colours.jpg" alt="Iterating through selected rows" title="Iterating through selected rows"></p>
+<h2 id="traversing-the-dom">Traversing the DOM</h2>
+<p>Now we are going to look at parent nodes, child nodes and siblings.</p>
+<pre class="prettyprint">    var itemList = document.querySelector('#items');
+
+    // parentNode
+    console.log(itemList.parentNode);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>&lt;div id=&quot;main&quot; class=&quot;card card-body&quot;&gt;<br>
+&lt;h2 class=&quot;title&quot;&gt;Add Items&lt;/h2&gt;<br>
+&lt;form class=&quot;form-inline mb-3&quot;&gt;<br>
+&lt;input type=&quot;text&quot; class=&quot;form-control mr-2&quot;&gt;<br>
+&lt;input type=&quot;submit&quot; class=&quot;btn btn-dark&quot; value=&quot;&gt; ubmit&quot;&gt;<br>
+&lt;/form&gt;<br>
+&lt;h2 class=&quot;title&quot;&gt;Items&lt;/h2&gt;<br>
+&lt;ul id=&quot;items&quot; class=&quot;list-group&quot;&gt;<br>
+&lt;li class=&quot;list-group-item&quot;&gt;Item 1&lt;/li&gt;<br>
+&lt;li class=&quot;list-group-item&quot;&gt;Item 2&lt;/li&gt;<br>
+&lt;li class=&quot;list-group-item&quot;&gt;Item 3&lt;/li&gt;<br>
+&lt;li class=&quot;list-group-item&quot;&gt;Item 4&lt;/li&gt;<br>
+&lt;/ul&gt;<br>
+&lt;/div&gt;</p>
+</blockquote>
+<p>On the code above the <code>h2</code> element has a parent element which is the <code>div</code> with <em>id=&quot;main&quot;</em>.</p>
+<p>That is the <code>h2</code> element is <strong>inside</strong> the parent div.</p>
+<p>The <code>h2</code> element is a child of the div.</p>
+<p>The <em>form</em> is a sibling of the <code>h2</code> element.</p>
+<pre class="prettyprint">    itemList.parentNode.style.backgroundColor = '#f4f4f4';
+</pre>
+<p>Changes the background colour of the parent node.</p>
+<p><img src="assets/images/dom/parent-node.jpg" alt="Change the parent node colour to light grey" title="Change the parent node colour to light grey"></p>
+<p>You can see the changes in the parent div.</p>
+<blockquote>
+<p>&lt;div id=&quot;main&quot; class=&quot;card card-body&quot; style=&quot;background-color: rgb(244, 244, 244);&quot;&gt;...&lt;/div&gt;</p>
+</blockquote>
+<p>If we want to see what the parent node of the parent node is we can use the following code.</p>
+<pre class="prettyprint">    console.log(itemList.parentNode.parentNode);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>&lt;div class=&quot;container&quot;&gt;...&lt;/div&gt;</p>
+</blockquote>
+<pre class="prettyprint">    console.log(itemList.parentNode.parentNode.parentNode);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>&lt;body&gt;...&lt;/body&gt;</p>
+</blockquote>
+<p><strong>parentElement</strong> is basically the same thing.</p>
+<pre class="prettyprint">    var itemList = document.querySelector('#items');
+
+    console.log(itemList.parentElement);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>div#main.card.card-body</p>
+</blockquote>
+<h3 id="child-nodes">Child nodes</h3>
+<p>The child nodes of the element with the ID #items will bring back the <code>li's</code> and white space nodes.</p>
+<pre class="prettyprint">    var itemList = document.querySelector('#items');
+
+    // childNodes
+    console.log(itemList.childNodes);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>NodeList(9) [text, li.list-group-item, text, li.list-group-item, text, li.&gt; list-group-item, text, li.list-group-item, text]<br>
+0: text<br>
+1: li.list-group-item<br>
+2: text<br>
+3: li.list-group-item<br>
+4: text<br>
+5: li.list-group-item<br>
+6: text<br>
+7: li.list-group-item<br>
+8: text<br>
+length: 9</p>
+</blockquote>
+<p>The whitespace nodes in the child nodes are for example, <em>2: text</em>. These are just the newlines at the end of the <code>li</code> elements.</p>
+<p>If you got rid of the line breaks you would just end up with the <code>li</code> nodes in the list.</p>
+<p>This is a problem with <code>.childNodes</code> so instead it is better to use <code>.children</code>.</p>
+<pre class="prettyprint">    console.log(itemList.children);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>HTMLCollection(4) [li.list-group-item, li.list-group-item, li.list-group-item, li.list-group-item]
+0: li.list-group-item
+1: li.list-group-item
+2: li.list-group-item
+3: li.list-group-item
+length: 4</p>
+</blockquote>
+<p>Now we are getting the children which is what we want. This time it is a HTML collection so we need to change it to an array if we want to iterate through it.</p>
+<p>we can select an individual item from the list using bracket notation.</p>
+<pre class="prettyprint">    console.log(itemList.children[1]);
+</pre>
+<p>Returns the second item in the collection.</p>
+<blockquote>
+<p>li.list-group-item</p>
+</blockquote>
+<p>You can open the item a scroll through its attributes. The outerHTML can be examined.</p>
+<blockquote>
+<p>outerHTML: &quot;&lt;li class=&quot;list-group-item&quot;&gt;Item 2</li>&quot;</p>
+</blockquote>
+<p>You can use this to change the HTML.</p>
+<pre class="prettyprint">    itemList.children[1].style.backgroundColor = 'yellow';
+</pre>
+<p>Returns.</p>
+<p><img src="assets/images/dom/change-element-style.jpg" alt="Change a child elements style" title="Change a child elements style"></p>
+<p>There is also a property named <code>.firstChild</code>.</p>
+<pre class="prettyprint">    console.log(itemList.firstChild);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>#text</p>
+</blockquote>
+<p>Once again this includes white space and doesn't bring back what we were expecting so instead use <code>.firstElementChild</code>.</p>
+<pre class="prettyprint">    console.log(itemList.firstElementChild);
+</pre>
+<p>This time it returns something useful.</p>
+<blockquote>
+<p>li.list-group-item</p>
+</blockquote>
+<p>Scroll through the attributes to find the <em>outerText</em>.</p>
+<blockquote>
+<p>outerText: &quot;Item 1&quot;</p>
+</blockquote>
+<p>We also have <code>.lastChild</code> and <code>.lastElementChild</code>.</p>
+<pre class="prettyprint">    // lastChild
+    console.log(itemList.lastChild);
+    // lastElementChild
+    console.log(itemList.lastElementChild);
+    itemList.lastElementChild.textContent = 'Hello 4';
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>#text<br>
+li.list-group-item</p>
+</blockquote>
+<p>OuterHTML.</p>
+<blockquote>
+<p>outerHTML: &quot;&lt;li class=&quot;list-group-item&quot;&gt;Hello 4&lt;/li&gt;&quot;</p>
+</blockquote>
+<p><img src="assets/images/dom/last-element-child.jpg" alt=".lastElementChild" title=".lastElementChild"></p>
+<h3 id="siblings">Siblings</h3>
+<h4 id="nextsibling">.nextSibling</h4>
+<pre class="prettyprint">    console.log(itemList.nextSibling);
+</pre>
+<p>Once again this returns the whitespace so use <code>.nextElementSibling</code> instead.</p>
+<pre class="prettyprint">    console.log(itemList.nextElementSibling);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>null</p>
+</blockquote>
+<p>This is because there are no &quot;next&quot; siblings in <em>itemList</em>.</p>
+<h4 id="previoussibling-and-previouselementsibling">.previousSibling and .previousElementSibling</h4>
+<pre class="prettyprint">// previousSibling
+console.log(itemList.previousSibling);
+// previousElementSibling
+console.log(itemList.previousElementSibling);
+itemList.previousElementSibling.style.color = 'green';
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>#text<br>
+h2.title</p>
+</blockquote>
+<p><img src="assets/images/dom/previous-element-sibling.jpg" alt=".previousSibling" title=".previousSibling"></p>
+<h3 id="creating-dom-elements">Creating DOM elements</h3>
+<pre class="prettyprint">    var newDiv = document.createElement('div');
+    console.log(newDiv);
+</pre>
+<p>Returns</p>
+<blockquote>
+<p>div</p>
+</blockquote>
+<p>The outerHTML attribute is an empty div.</p>
+<blockquote>
+<div></div>
+</blockquote>
+<p>We can add other elements or styles to this div.</p>
+<pre class="prettyprint">    newDiv.className = 'hello';
+    console.log(newDiv);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>div.hello</p>
+</blockquote>
+<p>outerHTML.</p>
+<blockquote>
+<p>outerHTML: &quot;&lt;div class=&quot;hello&quot;&gt;</div>&quot;</p>
+</blockquote>
+<p>We can add an ID.</p>
+<pre class="prettyprint">    newDiv.id = 'hello1';
+</pre>
+<p>outerHTML.</p>
+<blockquote>
+<p>outerHTML: &quot;&lt;div class=&quot;hello&quot; id=&quot;hello1&quot;&gt;&lt;/div&gt;&quot;</p>
+</blockquote>
+<p>Add an attribute.</p>
+<pre class="prettyprint">    newDiv.setAttribute('title', 'Hello Div');
+</pre>
+<p>outerHTML.</p>
+<blockquote>
+<p>outerHTML: &quot;&lt;div class=&quot;hello&quot; id=&quot;hello1&quot; title=&quot;Hello Div&quot;&gt;&lt;/div&gt;&quot;</p>
+</blockquote>
+<h4 id="createtextnode">.createTextNode</h4>
+<p>We can create a new text node for our div.</p>
+<pre class="prettyprint">    let newDivText = document.createTextNode('Hello World');
+</pre>
+<p>Now, we have to append this text node as a child to our div.</p>
+<pre class="prettyprint">    newDiv.appendChild(newDivText);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<div class="hello" id="hello1" title="Hello Div">Hello World</div>
+</blockquote>
+<p>At the moment the div exists but it has to be inserted into the DOM.</p>
+<p>We will append it to our container div and insert it before our <strong>H1</strong> element.</p>
+<pre class="prettyprint">    let container = document.querySelector('header .container');
+    let h1 = document.querySelector('header h1');
+
+    newDiv.style.fontSize = '30px';
+
+    container.insertBefore(newDiv, h1);
+
+    console.log(newDiv);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>div#hello1.hello</p>
+</blockquote>
+<p>outerHTML.</p>
+<blockquote>
+<p>outerHTML: &quot;&lt;div class=&quot;hello&quot; id=&quot;hello1&quot; title=&quot;Hello Div&quot; style=&quot;font-size: 30px;&quot;&gt;Hello World&lt;/div&gt;&quot;</p>
+</blockquote>
+<p><img src="assets/images/dom/insert-element.jpg" alt="Insert new element" title="Insert new element"></p>
+<h2 id="events">Events</h2>
+<p>Add a new button to the HTML.</p>
+<pre class="prettyprint">    ...
+    &lt;/ul&gt;
+    &lt;br/&gt;
+    &lt;button class=&quot;btn btn-dark btn-block&quot; id=&quot;button&quot;&gt;Click here&lt;/button&gt;
+</pre>
+<p>One way of creating an event.</p>
+<pre class="prettyprint">    const button = document.getElementById('button').addEventListener('click', () =&gt; {
+      console.log('Button clicked!');
+    });
+</pre>
+<p>A nicer way is to create a separate event listener.</p>
+<pre class="prettyprint">    const button = document.getElementById('button').addEventListener('click', buttonClick);
+
+    const buttonClick(e) =&gt; {
+      console.log('Button clicked!');
+    }
+</pre>
+<p>You will get an error with this code. buttonClick is called before initialisation.</p>
+<p><strong>Note:</strong> If you use <code>var</code> instead of <code>let</code> or <code>const</code> it will actually work this way.</p>
+<p>To fix this.</p>
+<pre class="prettyprint">    const buttonClick = (e) =&gt; {
+      console.log('Button clicked!');
+    }
+
+    const button = document.getElementById('button').addEventListener('click', buttonClick);
+</pre>
+<p>We can also change elements like we did previously.</p>
+<pre class="prettyprint">    const buttonClick = (e) =&gt; {
+      document.getElementById('header-title').textContent = 'Changed';
+    }
+
+    const button = document.getElementById('button').addEventListener('click', buttonClick);
+</pre>
+<p><img src="assets/images/dom/event-listener-change-element.jpg" alt="Use an event listener to change header text" title="Use an event listener to change header text"></p>
+<p>You could also use <code>.querySelector()</code> to change the background colour of the panel.</p>
+<pre class="prettyprint">    const buttonClick = (e) =&gt; {
+      document.getElementById('header-title').textContent = 'Changed';
+      document.querySelector('#main').style.backgroundColor = '#f4f4f4';
+    }
+
+    const button = document.getElementById('button').addEventListener('click', buttonClick);
+</pre>
+<p>We are passing in the event to our function as <strong>e</strong>. We can log this.</p>
+<pre class="prettyprint">    const buttonClick = (e) =&gt; {
+      console.log(e);
+    }
+
+    const button = document.getElementById('button').addEventListener('click', buttonClick);
+</pre>
+<p>This returns information about our event.</p>
+<blockquote>
+<p>PointerEvent {isTrusted: true, pointerId: 1, width: 1, height: 1, pressure: 0, …}</p>
+</blockquote>
+<p>If you use the following code you will see the element that was clicked.</p>
+<pre class="prettyprint">    console.log(e.target);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p><button class="btn btn-dark btn-block" id="button">Click here</button></p>
+</blockquote>
+<p>If we want the ID of the element we can get it with.</p>
+<pre class="prettyprint">    console.log(e.target.id);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>button</p>
+</blockquote>
+<pre class="prettyprint">    console.log(e.target.className);
+</pre>
+<p>Returns all of the classes on the element.</p>
+<blockquote>
+<p>btn btn-dark btn-block</p>
+</blockquote>
+<pre class="prettyprint">    console.log(e.target.classList);
+</pre>
+<p>Returns a DOM token list of classes.</p>
+<blockquote>
+<p>DOMTokenList(3) [&quot;btn&quot;, &quot;btn-dark&quot;, &quot;btn-block&quot;, value: &quot;btn btn-dark btn-block&quot;]<br>
+0: &quot;btn&quot;<br>
+1: &quot;btn-dark&quot;<br>
+2: &quot;btn-block&quot;<br>
+length: 3<br>
+value: &quot;btn btn-dark btn-block&quot;<br>
+[[Prototype]]: DOMTokenList</p>
+</blockquote>
+<p>Now we can output these results to the DOM.</p>
+<p>Add a div to the HTML.</p>
+<pre class="prettyprint">    ...
+    &lt;/ul&gt;
+    &lt;div id=&quot;output&quot;&gt;&lt;/div&gt;
+    &lt;br/&gt;
+    ...
+</pre>
+<p>Now add this code.</p>
+<pre class="prettyprint">    const buttonClick = (e) =&gt; {
+      let output = document.getElementById('output');
+      output.innerHTML = '&lt;h3&gt;' + e.target.id + '&lt;/h3&gt;';
+    }
+</pre>
+<p>Added element to the DOM.</p>
+<p><img src="assets/images/dom/output-div.jpg" alt="Output target values to the DOM" title="Output target values to the DOM"></p>
+<p>You can find the type of event that has been triggered.</p>
+<pre class="prettyprint">    console.log(e.type);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>click</p>
+</blockquote>
+<p>You can check if a certain key has been pressed and run code based on that key.</p>
+<pre class="prettyprint">    console.log(e.altKey);
+</pre>
+<p>Now, if I click on the button the <code>e.altKey</code> will return.</p>
+<blockquote>
+<p>false</p>
+</blockquote>
+<p>If I hold the <code>Alt</code> key down while I click the button it will return.</p>
+<blockquote>
+<p>true</p>
+</blockquote>
+<p>I could now write code based on what key I held down.</p>
+<p>I can also change the type of key pressed.</p>
+<pre class="prettyprint">    console.log(e.altKey);
+    console.log(e.ctrlKey);
+    console.log(e.shiftKey);
+
+      if (e.ctrlKey) {
+        console.log('You pressed the control key!');
+      }
+</pre>
+<p>When I hold the <code>Ctrl</code> key down.</p>
+<blockquote>
+<p>false<br>
+true<br>
+false<br>
+You pressed the control key!</p>
+</blockquote>
+<h3 id="event-types">Event types</h3>
+<p>Create a function.</p>
+<pre class="prettyprint">    const button = document.getElementById('button');
+    button.addEventListener('click', runEvent);
+
+    function runEvent(e) {
+      e.preventDefault();
+      console.log('EVENT TYPE: ' + e.type);
+    }
+</pre>
+<blockquote>
+<p>EVENT TYPE: click</p>
+</blockquote>
+<p>Now, change the click type.</p>
+<pre class="prettyprint">        button.addEventListener('dblclick', runEvent);
+</pre>
+<p>If I double click the mouse.</p>
+<blockquote>
+<p>EVENT TYPE: dblclick</p>
+</blockquote>
+<pre class="prettyprint">    button.addEventListener('mousedown', runEvent);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>EVENT TYPE: mousedown</p>
+</blockquote>
+<pre class="prettyprint">    button.addEventListener('mouseup', runEvent);
+</pre>
+<p>I have to click and hold the mouse down then release and it returns.</p>
+<blockquote>
+<p>EVENT TYPE: mouseup</p>
+</blockquote>
+<p>Now we are going to test other event type. First we'll add a new <code>div</code> to our page.</p>
+<pre class="prettyprint">    &lt;button class=&quot;btn btn-dark btn-block&quot; id=&quot;button&quot;&gt;Click here&lt;/button&gt;&lt;br/&gt;
+    &lt;div id-&quot;box&quot; style=&quot;width:400px;height:200px;background-color:#f4f4f4;&quot;&gt;&lt;/div&gt;
+</pre>
+<p>In our JavaScript add.</p>
+<pre class="prettyprint">    const box = document.getElementById('box');
+    box.addEventListener('mouseenter', runEvent);
+</pre>
+<p>Now as soon as I hover over the box it will run the function <code>runEvent()</code>.</p>
+<blockquote>
+<p>EVENT TYPE: mouseenter</p>
+</blockquote>
+<p>You also have.</p>
+<pre class="prettyprint">    const box = document.getElementById('box');
+    box.addEventListener('mouseenter', runEvent);
+    box.addEventListener('mouseleave', runEvent);
+</pre>
+<p>When you go in and out of the box.</p>
+<blockquote>
+<p>EVENT TYPE: mouseenter<br>
+EVENT TYPE: mouseleave</p>
+</blockquote>
+<p>You also have.</p>
+<pre class="prettyprint">    const box = document.getElementById('box');
+    box.addEventListener('mouseover', runEvent);
+    box.addEventListener('mouseout', runEvent);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>EVENT TYPE: mouseover<br>
+EVENT TYPE: mouseout</p>
+</blockquote>
+<p>Our next event is <code>mousemove</code>.</p>
+<pre class="prettyprint">    const box = document.getElementById('box');
+    box.addEventListener('mousemove', runEvent);
+
+    //button.addEventListener('mousedown', runEvent);
+    function runEvent(e) {
+      e.preventDefault();
+      console.log('EVENT TYPE: ' + e.type);
+
+      output.innerHTML = '&lt;h3&gt;MouseX: ' + e.offsetX + ' &lt;/h3&gt;&lt;h3&gt;MouseY: ' + e.offsetY + '&lt;/h3&gt;';
+      document.body.style.backgroundColor = &quot;rgb(&quot; + e.offsetX + &quot;,&quot; + e.offsetY + &quot;, 40)&quot;;
+    }
+</pre>
+<p>When we run this code we see the X and Y mouse values change and the border colour change as we move the mouse around.</p>
+<p><img src="assets/images/dom/mouseout-1.jpg" alt="Mouseout 1" title="Mouseout 1"></p>
+<p>.</p>
+<p><img src="assets/images/dom/mouseout-2.jpg" alt="Mouseout 2" title="Mouseout 2"></p>
+<p>We could remove the <code>document.body</code> line and replace it with. This will change the box element's colour as we move around.</p>
+<pre class="prettyprint">      box.style.backgroundColor = &quot;rgb(&quot; + e.offsetX + &quot;,&quot; + e.offsetY + &quot;, 40)&quot;;
+</pre>
+<p><img src="assets/images/dom/mouseout-3.jpg" alt="Mouseout 3" title="Mouseout 3"></p>
+<h3 id="keyboard-and-input-events">Keyboard and Input events</h3>
+<p>Lets create <code>keydown</code> event in the input box with a type of <em>text</em>.</p>
+<pre class="prettyprint">    var itemInput = document.querySelector('input[type=&quot;text&quot;]');
+    var form = document.querySelector('form');
+
+    itemInput.addEventListener('keydown', runEvent);
+
+    function runEvent(e) {
+      e.preventDefault();
+      console.log('EVENT TYPE: ' + e.type);
+    }
+</pre>
+<p>When we type text in the input field we kick off the following event.</p>
+<blockquote>
+<p>EVENT TYPE: keydown</p>
+</blockquote>
+<p>Each letter we type will fire off the <code>keydown</code> event.</p>
+<pre class="prettyprint">    var itemInput = document.querySelector('input[type=&quot;text&quot;]');
+    var form = document.querySelector('form');
+
+    itemInput.addEventListener('keydown', runEvent);
+
+    function runEvent(e) {
+      console.log('EVENT TYPE: ' + e.type);
+
+      document.getElementById('output').innerHTML = '&lt;h3&gt;' + e.target.value + '&lt;/h3&gt;';
+    }
+</pre>
+<p>Returns.</p>
+<p><img src="assets/images/dom/keydown.jpg" alt="Keydown event" title="Keydown event"></p>
+<p>If we add a <code>keyup</code> event we can even make sure that the final character is shown in the output. By typing in the same text as previously we can see the following in the log.</p>
+<blockquote>
+<p>EVENT TYPE: keydown
+EVENT TYPE: keyup</p>
+</blockquote>
+<p>You also have a <code>keypress</code> event.</p>
+<pre class="prettyprint">    itemInput.addEventListener('keypress', runEvent);
+</pre>
+<p>We can set the focus of our input field.</p>
+<pre class="prettyprint">    itemInput.addEventListener('focus', runEvent);
+</pre>
+<p>We can set focus and blur at the same time. When we click into the input field we will see the cursor and when we click out the cursor will disappear.</p>
+<pre class="prettyprint">    var itemInput = document.querySelector('input[type=&quot;text&quot;]');
+
+    itemInput.addEventListener('focus', runEvent);
+    itemInput.addEventListener('blur', runEvent);
+</pre>
+<p>Returns.</p>
+<blockquote>
+<p>EVENT TYPE: focus<br>
+EVENT TYPE: blur</p>
+</blockquote>
+<p>There are two other events <code>cut</code> and <code>paste</code>.</p>
+<pre class="prettyprint">    var itemInput = document.querySelector('input[type=&quot;text&quot;]');
+
+    itemInput.addEventListener('cut', runEvent);
+    itemInput.addEventListener('paste', runEvent);
+</pre>
+<p>You can cut the text in the input field and it fires this event.</p>
+<blockquote>
+<p>EVENT TYPE: cut</p>
+</blockquote>
+<p>If you paste it back the following event occurs.</p>
+<blockquote>
+<p>EVENT TYPE: paste</p>
+</blockquote>
+<p>There is also an <code>input</code> event.</p>
+<pre class="prettyprint">    itemInput.addEventListener('input', runEvent);
+</pre>
+<p>If you do anything in the input field it will send off this message.</p>
+<blockquote>
+<p>EVENT TYPE: input</p>
+</blockquote>
+<p>Let's add a select item after our input text field.</p>
+<pre class="prettyprint">    &lt;input type=&quot;text&quot; class=&quot;form-control mr-2&quot;&gt;
+    &lt;select class=&quot;form-control mr2&quot;&gt;
+      &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;
+      &lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;
+      &lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;
+    &lt;/select&gt;
+</pre>
+<p>We want an event that fires when we change a value.</p>
+<pre class="prettyprint">let select = document.querySelector('select');
+
+select.addEventListener('change', runEvent);
+
+function runEvent(e) {
+  console.log('EVENT TYPE: ' + e.type);
+  console.log(e.target.value);
+}
+</pre>
+<p>When we change a value in our dropdown list it returns.</p>
+<p><img src="assets/images/dom/change-event.jpg" alt="Change event" title="Change event"></p>
+<blockquote>
+<p>EVENT TYPE: change<br>
+3</p>
+</blockquote>
+<p>Now we will check events on the <code>submit</code> button.</p>
+<pre class="prettyprint">    let form = document.querySelector('form');
+
+    form.addEventListener('submit', runEvent);
+
+    function runEvent(e) {
+      console.log('EVENT TYPE: ' + e.type);
+      console.log(e.target.value);
+    }
+</pre>
+<p>You will see the results appear then disappear on the screen.</p>
+<p>To stop this from happening change the <code>runEvent()</code> function.</p>
+<pre class="prettyprint">    function runEvent(e) {
+      e.preventDefault();
+      console.log('EVENT TYPE: ' + e.type);
+      console.log(e.target.value);
+    }
+</pre>
+<p>Now the page won't refresh and this is the result.</p>
+<blockquote>
+<p>EVENT TYPE: change<br>
+3</p>
+</blockquote>
+<h2 id="adding-events-to-a-form">Adding events to a form</h2>
+<p>Now we are going to build a working application with a modified version of the form.</p>
+<p>First we select all of the elements that we want to work with and then create event listeners for them.</p>
+<pre class="prettyprint">    var form = document.getElementById('addForm');
+    var itemList = document.getElementById('items');
+    var filter = document.getElementById('filter');
+
+    // Form submit event
+    form.addEventListener('submit', addItem);
+    // Delete event
+    itemList.addEventListener('click', removeItem);
+    // Filter event
+    filter.addEventListener('keyup', filterItems);
+</pre>
+<p>Now, we need to create functions for our event handling starting with <code>addItem</code>.</p>
+<h4 id="additem">addItem()</h4>
+<pre class="prettyprint">    function addItem(e) {
+      e.preventDefault();
+
+      // Get input value
+      var newItem = document.getElementById('item').value;
+
+      // Create new li element
+      var li = document.createElement('li');
+      // Add class
+      li.className = 'list-group-item';
+      // Add text node with input value
+      li.appendChild(document.createTextNode(newItem));
+
+      // Create del button element
+      var deleteBtn = document.createElement('button');
+
+      // Add classes to del button
+      deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+
+      // Append text node
+      deleteBtn.appendChild(document.createTextNode('X'));
+
+      // Append button to li
+      li.appendChild(deleteBtn);
+
+      // Append li to list
+      itemList.appendChild(li);
+    }
+</pre>
+<p>The event listener is waiting for a <code>submit</code> event to happen and when this occurs it will take the text that was added to the input field with an Id of <code>item</code> and then create a new <code>li</code> element  and append it to the list of other elements.</p>
+<p>Now we can build a removeItem function to remove an item from the list. We are waiting for a <code>click</code> event on and of the list items with a button that has the class of <code>delete</code>.</p>
+<h4 id="removeitem">removeItem()</h4>
+<pre class="prettyprint">function removeItem(e) {
+  if (e.target.classList.contains('delete')) {
+    if (confirm('Are You Sure?')) {
+      var li = e.target.parentElement;
+      itemList.removeChild(li);
+    }
+  }
+}
+</pre>
+<p>Another common task is to search the item list for a particular item. We use the search input field to enter the text for and item we want to search for. We are waiting for a <code>keyup</code> event on an input field with an Id of <code>filter</code>.</p>
+<p>What we are doing in this function is <strong>filtering</strong> the elements we want to search for.</p>
+<pre class="prettyprint">    function filterItems(e) {
+      // convert text to lowercase
+      var text = e.target.value.toLowerCase();
+      // Get lis
+      var items = itemList.getElementsByTagName('li');
+      // Convert to an array
+      Array.from(items).forEach(function (item) {
+        var itemName = item.firstChild.textContent;
+        if (itemName.toLowerCase().indexOf(text) != -1) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+</pre>
+<p>I have rewritten the code to remove <code>var</code> assignments and moved all of the functions into the event listeners.</p>
+<p>While this is more concise code it does make the code more complex to read.</p>
+<h4 id="final-code">final code</h4>
+<pre class="prettyprint">    // Add Item
+    document.getElementById('addForm').addEventListener('submit', (e) =&gt; {
+      e.preventDefault();
+
+      // get a list of items
+      const itemList = document.getElementById('items');
+
+      // Get input value
+      const newItem = document.getElementById('item').value;
+
+      // Create new li element
+      const li = document.createElement('li');
+      // Add class
+      li.className = 'list-group-item';
+      // Add text node with input value
+      li.appendChild(document.createTextNode(newItem));
+
+      // Create del button element
+      const deleteBtn = document.createElement('button');
+
+      // Add classes to del button
+      deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+
+      // Append text node
+      deleteBtn.appendChild(document.createTextNode('X'));
+
+      // Append button to li
+      li.appendChild(deleteBtn);
+
+      // Append li to list
+      itemList.appendChild(li);
+    });
+
+    // Delete Item
+    document.getElementById('items').addEventListener('click', (e) =&gt; {
+      // get a list of items
+      const itemList = document.getElementById('items');
+
+      if (e.target.classList.contains('delete')) {
+        if (confirm('Are You Sure?')) {
+          const li = e.target.parentElement;
+          itemList.removeChild(li);
+        }
+      }
+    });
+
+    // Filter Items
+    document.getElementById('filter').addEventListener('keyup', (e) =&gt; {
+      // get a list of items
+      const itemList = document.getElementById('items');
+
+      // convert text to lowercase
+      const text = e.target.value.toLowerCase();
+      // Get lis
+      const items = itemList.getElementsByTagName('li');
+      // Convert to an array
+      Array.from(items).forEach(function (item) {
+        const itemName = item.firstChild.textContent;
+        if (itemName.toLowerCase().indexOf(text) != -1) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+</pre>
+
+
+</div><!-- starter-template -->
+</div><!-- /.container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"/>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+</body>
+</html>
