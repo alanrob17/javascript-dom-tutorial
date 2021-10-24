@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>JavaScript Basics</title>
+<link href="assets/css/bootstrap.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="assets/css/starter-template.css" rel="stylesheet">
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?lang=css&amp;skin=sunburst"></script>
+<style type="text/css">
+html {
+	font-size: 90.0%;
+}
+
+h2 {
+	margin-top: 60px;
+}
+
+h4, h3 {
+	padding-top: 40px!;		
+}
+
+p {
+	font-size: 1.2em;
+}
+h4 {
+	font-size: 1.4em;
+}
+
+img, pre.prettyprint {
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+}
+h1, h2, h3, h4, h5, h6 {
+    color:#007bff;
+
+}
+blockquote {
+    border-left: 4px solid #999;
+    padding-left: 1rem;
+    page-break-inside: avoid;
+}
+</style>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">JavaScript</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Basics <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <div class="starter-template">
+
+
+<h1 id="section-2-javascript-language-basics">Section 2: JavaScript Language Basics</h1>
+<p>This is revision of the basic features in JavaScript.</p>
+<h3 id="simple-assignment">simple assignment</h3>
+<pre class="prettyprint">    <span class="hljs-keyword">var</span> firstName = <span class="hljs-string">"John"</span>;
+    <span class="hljs-built_in">console</span>.log(firstName);
+</pre>
+<p>.</p>
+<pre class="prettyprint"> <span class="hljs-keyword">var</span> lastName = <span class="hljs-string">"Smith"</span>;
+ <span class="hljs-keyword">var</span> age = <span class="hljs-number">28</span>;
+ <span class="hljs-built_in">console</span>.log(firstName + <span class="hljs-string">' '</span> + lastName + <span class="hljs-string">', age = '</span> + age);
+</pre>
+<p>.</p>
+<pre class="prettyprint"> <span class="hljs-keyword">var</span> fullAge = <span class="hljs-literal">true</span>;
+ <span class="hljs-built_in">console</span>.log(fullAge);
+</pre>
+<p>.</p>
+<pre class="prettyprint"> <span class="hljs-keyword">var</span> job, isMarried;
+ <span class="hljs-built_in">console</span>.log(job); <span class="hljs-comment">// prints undefined</span>
+
+ job = <span class="hljs-string">'teacher'</span>;
+ isMarried = <span class="hljs-literal">false</span>;
+ <span class="hljs-built_in">console</span>.log(job + <span class="hljs-string">', married: '</span> + isMarried);
+</pre>
+<h3 id="variable-mutation">variable mutation</h3>
+<pre class="prettyprint"> age = <span class="hljs-string">'twenty eight'</span>;
+ <span class="hljs-built_in">console</span>.log(age);
+</pre>
+<p>.</p>
+<pre class="prettyprint"> <span class="hljs-keyword">var</span> john = <span class="hljs-number">33</span>;
+ <span class="hljs-keyword">var</span> mark = <span class="hljs-number">28</span>
+ 
+ <span class="hljs-comment">// logical operators</span>
+ <span class="hljs-keyword">var</span> johnOlder = john &gt; mark;
+ <span class="hljs-built_in">console</span>.log(johnOlder);  <span class="hljs-comment">// returns true</span>
+</pre>
+<h3 id="typeof-operator"><code>typeof</code> operator</h3>
+<pre class="prettyprint"> <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> johnOlder);  <span class="hljs-comment">// returns boolean</span>
+ <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> john);  <span class="hljs-comment">// returns number</span>
+ <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> age);  <span class="hljs-comment">// returns string</span>
+ <span class="hljs-keyword">var</span> x;
+ <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> x);  <span class="hljs-comment">// returns undefined</span>
+</pre>
+<h3 id="operator-precedence">Operator precedence</h3>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence">Operator precedence list</a></p>
+<pre class="prettyprint"> <span class="hljs-keyword">var</span> now = <span class="hljs-number">2019</span>;
+ <span class="hljs-keyword">var</span> johnBorn = <span class="hljs-number">1987</span>;
+ <span class="hljs-keyword">var</span> fullAge = <span class="hljs-number">18</span>;
+ 
+ <span class="hljs-comment">// Multiple assignments</span>
+ <span class="hljs-comment">//precedence in this case - beats &gt;=</span>
+ <span class="hljs-keyword">var</span> isFullAge = now - johnBorn &gt;= fullAge;
+ <span class="hljs-built_in">console</span>.log(now - johnBorn);
+ <span class="hljs-built_in">console</span>.log(isFullAge);
+</pre>
+<p>Grouping is the highest precedence (beats division).</p>
+<pre class="prettyprint"> <span class="hljs-keyword">var</span> ageJohn = now - johnBorn;
+ <span class="hljs-keyword">var</span> ageMark = <span class="hljs-number">35</span>;
+ 
+ <span class="hljs-comment">// var average = ageJohn + ageMark / 2;  // this won't work, gives us: 49.5</span>
+ <span class="hljs-keyword">var</span> average = (ageJohn + ageMark) / <span class="hljs-number">2</span>;  <span class="hljs-comment">// this will work, gives us 33.5</span>
+ <span class="hljs-built_in">console</span>.log(average);
+ 
+ <span class="hljs-keyword">var</span> a,b;
+ a = (<span class="hljs-number">3</span> + <span class="hljs-number">5</span>) * <span class="hljs-number">4</span> - <span class="hljs-number">6</span>;  <span class="hljs-comment">// 8 * 4 // 32 - 6 // 26</span>
+ <span class="hljs-built_in">console</span>.log(a);
+</pre>
+<p>We can also assign the value of a to b.</p>
+<p>Assignment actually works right to left in this case.</p>
+<pre class="prettyprint"> a = b = (<span class="hljs-number">3</span> + <span class="hljs-number">5</span>) * <span class="hljs-number">4</span> - <span class="hljs-number">6</span>;  <span class="hljs-comment">// 8 * 4 // 32 - 6 // 26</span>
+ <span class="hljs-built_in">console</span>.log(b);  <span class="hljs-comment">// 26</span>
+</pre>
+<h3 id="more-operators">More operators</h3>
+<pre class="prettyprint"> <span class="hljs-comment">// a = a * 2; simpler to do this,</span>
+ a *= <span class="hljs-number">2</span>;
+ <span class="hljs-built_in">console</span>.log(a);  <span class="hljs-comment">// 52</span>
+ 
+ a +=<span class="hljs-number">10</span>;
+ <span class="hljs-built_in">console</span>.log(a);  <span class="hljs-comment">// 62</span>
+ 
+ <span class="hljs-comment">// can do, a = a + 1; or a += 1; or even better,</span>
+ a++;
+ <span class="hljs-built_in">console</span>.log(a);  <span class="hljs-comment">// 63</span>
+ 
+ a--;
+ <span class="hljs-built_in">console</span>.log(a);  <span class="hljs-comment">// 62</span>
+</pre>
+<h3 id="coding-challenge-1">Coding challenge 1</h3>
+<p>Mark and John are trying to compare their BMI (Body Mass Index), which is calculated
+using the formula: BMI = mass / height^2 (or mass / (height * height)). (mass in kg and height in metres).</p>
+<ol>
+<li>Store Mark and John's mass and height in variables.</li>
+<li>Calculate both their BMI's.</li>
+<li>Create a boolean variable containing information about whether Mark has a higher BMI than John.</li>
+<li>Print the results.</li>
+</ol>
+<pre class="prettyprint"> <span class="hljs-keyword">var</span> markMass = <span class="hljs-number">78</span>;
+ <span class="hljs-keyword">var</span> markHeight = <span class="hljs-number">1.69</span>;
+ <span class="hljs-keyword">var</span> johnMass = <span class="hljs-number">92</span>;
+ <span class="hljs-keyword">var</span> johnHeight = <span class="hljs-number">1.95</span>;
+ 
+ <span class="hljs-keyword">var</span> markBmi = markMass / (markHeight * markHeight);
+ <span class="hljs-keyword">var</span> johnBmi = johnMass / (johnHeight * johnHeight);
+ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Mark's BMI: "</span> + markBmi);
+ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Johns's BMI: "</span> + johnBmi);
+ <span class="hljs-keyword">var</span> isMarksBmiHigher = markBmi &gt; johnBmi;
+ <span class="hljs-keyword">if</span> (markBmi &gt; johnBmi) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Marks's BMI is higher than John's."</span>);
+ }
+ <span class="hljs-keyword">else</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Marks's BMI is lower than John's."</span>);
+ }
+</pre>
+<h4>Results</h4>
+<blockquote>
+Mark's BMI: 27.309968138370508<br>
+Johns's BMI: 24.194608809993426<br>
+Marks's BMI is higher than John's.
+</blockquote>
+<h3 id="if--else-statements">if / else statements</h3>
+<pre class="prettyprint"> <span class="hljs-keyword">var</span> name = <span class="hljs-string">"John"</span>;
+ <span class="hljs-keyword">var</span> status = <span class="hljs-string">"single"</span>;
+ 
+ <span class="hljs-keyword">if</span> (status === <span class="hljs-string">"married"</span>) {
+  <span class="hljs-built_in">console</span>.log(name + <span class="hljs-string">" is married."</span>);
+ } <span class="hljs-keyword">else</span> {
+  <span class="hljs-built_in">console</span>.log(name + <span class="hljs-string">" is not married."</span>);
+ }
+</pre>
+<h3 id="boolean-logic">Boolean logic</h3>
+<pre class="prettyprint"> <span class="hljs-keyword">var</span> name = <span class="hljs-string">"John"</span>;
+ <span class="hljs-keyword">var</span> age = <span class="hljs-number">16</span>;
+ 
+ <span class="hljs-keyword">if</span> (age &lt; <span class="hljs-number">13</span>) {
+  <span class="hljs-built_in">console</span>.log(name + <span class="hljs-string">" is a boy."</span>);
+ } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (age &gt;= <span class="hljs-number">13</span> &amp;&amp; age &lt; <span class="hljs-number">20</span>) {
+  <span class="hljs-built_in">console</span>.log(name + <span class="hljs-string">" is a teenager."</span>);
+ } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (age &gt; <span class="hljs-number">20</span> &amp;&amp; age &lt; <span class="hljs-number">30</span>) {
+  <span class="hljs-built_in">console</span>.log(name + <span class="hljs-string">" is a young man."</span>);
+ }
+ <span class="hljs-keyword">else</span> {
+  <span class="hljs-built_in">console</span>.log(name + <span class="hljs-string">" is a man."</span>);
+ }
+</pre>
+<h3 id="the-ternary-operator-and-switch-statement">The Ternary operator and switch statement</h3>
+<pre class="prettyprint"> <span class="hljs-keyword">var</span> name = <span class="hljs-string">"John"</span>;
+ <span class="hljs-keyword">var</span> age = <span class="hljs-number">16</span>;
+ 
+ age &gt;= <span class="hljs-number">18</span> ? <span class="hljs-built_in">console</span>.log(name + <span class="hljs-string">" can drink a beer."</span>) : <span class="hljs-built_in">console</span>.log(name + <span class="hljs-string">" can drink a fruit juice.\n"</span>);
+</pre>
+<h4 id="results">Results</h4>
+<blockquote>
+<p>John can drink a fruit juice.</p>
+</blockquote>
+<pre class="prettyprint"> <span class="hljs-comment">// a better use of the ternary operator</span>
+ <span class="hljs-keyword">var</span> drink = age &gt;= <span class="hljs-number">18</span> ? <span class="hljs-string">"beer"</span> : <span class="hljs-string">"fruit juice"</span>;
+ <span class="hljs-built_in">console</span>.log(name + <span class="hljs-string">" can drink a "</span> + drink + <span class="hljs-string">"\n"</span>);  <span class="hljs-comment">// John can drink a fruit juice.</span>
+</pre>
+<h3 id="switch-statement">Switch statement</h3>
+<pre class="prettyprint"> <span class="hljs-keyword">var</span> job = <span class="hljs-string">'teacher'</span>;
+ 
+ <span class="hljs-keyword">switch</span> (job) {
+  <span class="hljs-keyword">case</span> <span class="hljs-string">'teacher'</span>:
+   <span class="hljs-built_in">console</span>.log(name + <span class="hljs-string">" teaches kids how to code.\n"</span>);
+   <span class="hljs-keyword">break</span>;
+  <span class="hljs-keyword">case</span> <span class="hljs-string">'driver'</span>:
+   <span class="hljs-built_in">console</span>.log(name + <span class="hljs-string">" drives kids to school.\n"</span>);
+   <span class="hljs-keyword">break</span>;
+  <span class="hljs-keyword">case</span> <span class="hljs-string">'driver'</span>:
+   <span class="hljs-built_in">console</span>.log(name + <span class="hljs-string">" designs websites.\n"</span>);
+   <span class="hljs-keyword">break</span>;
+  <span class="hljs-keyword">default</span>:
+   <span class="hljs-built_in">console</span>.log(name + <span class="hljs-string">" has no job.\n"</span>);
+ }
+</pre>
+<h4 id="results">Results</h4>
+<blockquote>
+<p>John teaches kids how to code.</p>
+</blockquote>
+<h3 id="truthy-and-falsy-values">Truthy and falsy values</h3>
+<p>falsy values are: undefined, null, 0, '', NaN</p>
+<pre class="prettyprint"> <span class="hljs-keyword">var</span> height;
+ height = <span class="hljs-number">0</span>; <span class="hljs-comment">// if the value is 0 the the result is: Variable has NOT been defined.</span>
+ 
+ <span class="hljs-keyword">if</span> (height) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Variable is defined."</span>);
+ } <span class="hljs-keyword">else</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Variable has NOT been defined."</span>);
+ }
+
+ <span class="hljs-comment">// this is a problem because height has actually been defined. We can fix this by,</span>
+ <span class="hljs-keyword">if</span> (height || height === <span class="hljs-number">0</span>) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Variable is defined."</span>);
+ } <span class="hljs-keyword">else</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Variable has NOT been defined."</span>);
+ }
+</pre>
+<h4 id="results">Results</h4>
+<blockquote>
+<p>Variable has NOT been defined. (incorrect)
+Variable is defined. (correct)</p>
+</blockquote>
+<h3 id="equality-operators">Equality operators</h3>
+<p>In this case == changes the '23' string to 23 and then checks the value</p>
+<pre class="prettyprint"> height = <span class="hljs-number">23</span>;
+ <span class="hljs-keyword">if</span> (height == <span class="hljs-string">'23'</span>) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"The == operator does type coercion!\n"</span>);
+ }
+</pre>
+<p>This could be an unforeseen error so it is best practice to use strict conversion (===).</p>
+<h3 id="coding-challenge-2">Coding challenge 2</h3>
+<p>John and Mike both play basketball in different teams. In the latest 3 games.
+John's team scored 89, 128, 103 points.
+Mike's team scored 116, 94 and 123 points.</p>
+<ol>
+<li>Calculate the average score for each team.</li>
+<li>Decide which team wins with the highest average score in the output.</li>
+<li>Then change the scores to show different winners. Don't forget to take into account that there might be a draw (the same average score).</li>
+<li>EXTRA: Mary also plays basketball and her team scored 97, 134, and 105 points. Like before log the average winner to the console.</li>
+<li>Like before, change the scores to generate different winners, keeping in mind there might be draws.</li>
+</ol>
+<pre class="prettyprint"> <span class="hljs-keyword">var</span> johnsAverage = (<span class="hljs-number">89</span> + <span class="hljs-number">128</span> + <span class="hljs-number">103</span>) / <span class="hljs-number">3</span>;
+ <span class="hljs-keyword">var</span> mikesAverage = (<span class="hljs-number">116</span> + <span class="hljs-number">94</span> + <span class="hljs-number">123</span>) / <span class="hljs-number">3</span>;  
+ <span class="hljs-keyword">var</span> marysAverage = (<span class="hljs-number">97</span> + <span class="hljs-number">134</span> + <span class="hljs-number">105</span>) / <span class="hljs-number">3</span>; 
+ 
+ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'John\'s average score: '</span> + johnsAverage);
+ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Mike\'s average score: '</span> + mikesAverage);
+ 
+ <span class="hljs-comment">// which is the highest between John and Mike</span>
+ <span class="hljs-keyword">if</span> (johnsAverage &gt; mikesAverage) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'John has the highest average score: '</span> + johnsAverage);
+ } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mikesAverage &gt; johnsAverage) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Mike has the highest average score: '</span> + mikesAverage);
+ } <span class="hljs-keyword">else</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Both average scores are the same: '</span> + johnsAverage);
+ }
+</pre>
+<h4 id="results">Results</h4>
+<blockquote>
+John's average score: 106.66666666666667<br>
+Mike's average score: 111<br>
+Mike has the highest average score.
+</blockquote>
+<pre class="prettyprint"> <span class="hljs-comment">// Now do checks with Mary's team.</span>
+ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'John\'s average score: '</span> + johnsAverage);
+ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Mike\'s average score: '</span> + mikesAverage);
+ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Mary\'s average score: '</span> + marysAverage);
+ 
+ <span class="hljs-keyword">if</span> (johnsAverage &gt; mikesAverage &amp;&amp; johnsAverage &gt; marysAverage) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'John has the highest average score: '</span> + johnsAverage);
+ } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mikesAverage &gt; johnsAverage &amp;&amp; mikesAverage &gt; marysAverage) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Mike has the highest average score: '</span> + mikesAverage);
+ } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (marysAverage &gt; johnsAverage &amp;&amp; marysAverage &gt; mikesAverage) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Mary has the highest average score: '</span> + marysAverage);
+ } <span class="hljs-keyword">else</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'All average scores are the same.'</span>);
+ }
+</pre>
+<h4 id="results">Results</h4>
+<blockquote>
+John's average score: 106.66666666666667<br>
+Mike's average score: 111<br>
+Mike has the highest average score: 111<br>
+John's average score: 106.66666666666667<br>
+Mike's average score: 111<br>
+Mary's average score: 112<br>
+Mary has the highest average score: 112
+</blockquote>
+<h2 id="functions">Functions</h2>
+<pre class="prettyprint"> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">calculateAge</span>(<span class="hljs-params">birthYear</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-number">2019</span> - birthYear;
+ }
+ 
+ <span class="hljs-keyword">var</span> yearBorn = <span class="hljs-number">1985</span>;
+ <span class="hljs-keyword">var</span> firstName = <span class="hljs-string">'Ethan'</span>;
+ <span class="hljs-keyword">var</span> age = calculateAge(yearBorn);
+ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'The age is '</span> + age); <span class="hljs-comment">// The age is 34</span>
+</pre>
+<p>.</p>
+<pre class="prettyprint"> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">yearsUntilRetirement</span>(<span class="hljs-params">year, firstName</span>) </span>{
+ 
+  <span class="hljs-keyword">var</span> age = calculateAge(year); <span class="hljs-comment">// you can call a function within a function</span>
+  <span class="hljs-keyword">var</span> retirement = <span class="hljs-number">65</span> - age;
+ 
+  <span class="hljs-keyword">if</span> (retirement &gt; <span class="hljs-number">0</span>) {
+   <span class="hljs-built_in">console</span>.log(firstName + <span class="hljs-string">' retires in '</span> + retirement + <span class="hljs-string">' years.'</span>);    
+  } <span class="hljs-keyword">else</span> {
+   <span class="hljs-built_in">console</span>.log(firstName + <span class="hljs-string">' has already retired.'</span>);
+  }
+ }
+ 
+ yearsUntilRetirement(yearBorn, firstName);  <span class="hljs-comment">// Ethan retires in 31 years.</span>
+ 
+ yearsUntilRetirement(<span class="hljs-number">1952</span>, <span class="hljs-string">'Alan'</span>);  <span class="hljs-comment">// Alan has already retired.</span>
+</pre>
+<h3 id="function-statements-and-expressions">Function statements and expressions</h3>
+<pre class="prettyprint"> <span class="hljs-comment">// function expression</span>
+ <span class="hljs-keyword">var</span> whatJob = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">job, firstName</span>) </span>{
+  
+  <span class="hljs-keyword">var</span> output;
+  <span class="hljs-keyword">switch</span> (job) {
+   <span class="hljs-keyword">case</span> <span class="hljs-string">'teacher'</span>:
+    output = firstName + <span class="hljs-string">' teaches kids to program.'</span>;
+    <span class="hljs-keyword">break</span>;
+   <span class="hljs-keyword">case</span> <span class="hljs-string">'driver'</span>:
+    output = firstName + <span class="hljs-string">' drives an uber.'</span>;
+    <span class="hljs-keyword">break</span>;
+   <span class="hljs-keyword">case</span> <span class="hljs-string">'designer'</span>:
+    output = firstName + <span class="hljs-string">' creates websites.'</span>;
+    <span class="hljs-keyword">break</span>;
+   <span class="hljs-keyword">default</span>:
+    output = firstName + <span class="hljs-string">' is retired.'</span>;
+   }    
+ 
+  <span class="hljs-keyword">return</span> output;
+ }
+
+ <span class="hljs-built_in">console</span>.log(whatJob(<span class="hljs-string">'teacher'</span>, <span class="hljs-string">'Joe'</span>));
+ <span class="hljs-built_in">console</span>.log(whatJob(<span class="hljs-string">'designer'</span>, <span class="hljs-string">'Mike'</span>));
+ <span class="hljs-built_in">console</span>.log(whatJob(<span class="hljs-string">'driver'</span>, <span class="hljs-string">'Mary'</span>));
+ <span class="hljs-built_in">console</span>.log(whatJob(<span class="hljs-string">'retired'</span>, <span class="hljs-string">'Alan'</span>));
+</pre>
+<h2 id="arrays">Arrays</h2>
+<p>Different ways of creating an array. Arrays are zero based.</p>
+<pre class="prettyprint"> <span class="hljs-keyword">var</span> names = [<span class="hljs-string">'john'</span>, <span class="hljs-string">'Mark'</span>, <span class="hljs-string">'Mary'</span>, <span class="hljs-string">'Alan'</span>, <span class="hljs-string">'Ethan'</span>, <span class="hljs-string">'James'</span>, <span class="hljs-string">'Charley'</span>];
+ <span class="hljs-keyword">var</span> years = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-number">1960</span>, <span class="hljs-number">1999</span>, <span class="hljs-number">2001</span>, <span class="hljs-number">1952</span>, <span class="hljs-number">1985</span>, <span class="hljs-number">2006</span>, <span class="hljs-number">2011</span>);
+ 
+ <span class="hljs-built_in">console</span>.log(names[<span class="hljs-number">0</span>]);
+ <span class="hljs-built_in">console</span>.log(names);
+ <span class="hljs-built_in">console</span>.log(names.length);
+</pre>
+<h4 id="results">Results</h4>
+<blockquote>
+john<br>
+[ 'john', 'Mark', 'Mary', 'Alan', 'Ethan', 'James', 'Charley' ]<br>
+7
+</blockquote>
+<p><strong>or</strong></p>
+<pre class="prettyprint"> <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> names) {
+  <span class="hljs-built_in">console</span>.log(key, names[key]);
+ }
+</pre>
+<h4 id="results">Results</h4>
+<blockquote>
+<p>0 john<br>
+1 Mark<br>
+2 Mary<br>
+3 Alan<br>
+4 Ethan<br>
+5 James<br>
+6 Charley</p>
+</blockquote>
+<p><strong>or</strong></p>
+<pre class="prettyprint"> <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; names.length; i++){
+  <span class="hljs-built_in">console</span>.log(names[i]);
+ }
+</pre>
+<h4 id="results">Results</h4>
+<blockquote>
+<p>john<br>
+Mark<br>
+Mary<br>
+Alan<br>
+Ethan<br>
+James<br>
+Charley</p>
+</blockquote>
+<p><strong>or</strong></p>
+<pre class="prettyprint"> names.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">element</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(element);
+ });
+</pre>
+<h4 id="results">Results</h4>
+<blockquote>
+<p>john<br>
+Mark<br>
+Mary<br>
+Alan<br>
+Ethan<br>
+James<br>
+Charley</p>
+</blockquote>
+<h3 id="change-element-in-the-array">change element in the array</h3>
+<pre class="prettyprint">    names[<span class="hljs-number">0</span>] = <span class="hljs-string">'Ben'</span>;
+    <span class="hljs-built_in">console</span>.log();
+    names.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">element</span>) </span>{
+     <span class="hljs-built_in">console</span>.log(element);
+    });
+</pre>
+<h4 id="results">Results</h4>
+<blockquote>
+<p>Ben<br>
+Mark<br>
+Mary<br>
+Alan<br>
+Ethan<br>
+James<br>
+Charley</p>
+</blockquote>
+<p>You can even add a value that isn't in the array.</p>
+<pre class="prettyprint"> names[<span class="hljs-number">8</span>] = <span class="hljs-string">'Jen'</span>;
+ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'\n'</span> + names + <span class="hljs-string">'\n'</span>); <span class="hljs-comment">// Ben,Mark,Mary,Alan,Ethan,James,Charley,,Jen</span>
+ names.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">element</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(element);
+ });
+</pre>
+<h4 id="results">Results</h4>
+<blockquote>
+<p>Ben<br>
+Mark<br>
+Mary<br>
+Alan<br>
+Ethan<br>
+James<br>
+Charley<br>
+Jen</p>
+</blockquote>
+<p>Different data types in arrays.</p>
+<pre class="prettyprint"> <span class="hljs-keyword">var</span> john = [<span class="hljs-string">'John'</span>, <span class="hljs-string">'Smith'</span>, <span class="hljs-number">1989</span>, <span class="hljs-string">'teacher'</span>, <span class="hljs-literal">false</span>];
+ john.push(<span class="hljs-string">'blue'</span>);
+ <span class="hljs-built_in">console</span>.log(john); <span class="hljs-comment">// [ 'John', 'Smith', 1989, 'teacher', false, 'blue' ]</span>
+
+ john.unshift(<span class="hljs-string">'Mr.'</span>); <span class="hljs-comment">// add to start of array</span>
+ <span class="hljs-built_in">console</span>.log(john); <span class="hljs-comment">// [ 'Mr.', 'John', 'Smith', 1989, 'teacher', false, 'blue' ]</span>
+
+ john.pop();  <span class="hljs-comment">// removes last element</span>
+ <span class="hljs-built_in">console</span>.log(john); <span class="hljs-comment">// [ 'Mr.', 'John', 'Smith', 1989, 'teacher', false ]</span>
+
+ john.shift(); <span class="hljs-comment">// remove first element in array</span>
+ <span class="hljs-built_in">console</span>.log(john); <span class="hljs-comment">// [ 'John', 'Smith', 1989, 'teacher', false ]</span>
+
+ <span class="hljs-built_in">console</span>.log(john.indexOf(<span class="hljs-number">1989</span>)); <span class="hljs-comment">// 2</span>
+ <span class="hljs-built_in">console</span>.log(john.indexOf(<span class="hljs-string">'Alan'</span>)); <span class="hljs-comment">// can't find 'Alan' so returms -1</span>
+
+ <span class="hljs-keyword">var</span> isDesigner = john.indexOf(<span class="hljs-string">'designer'</span>) === <span class="hljs-number">-1</span> ? <span class="hljs-string">'John IS NOT a designer.'</span> : <span class="hljs-string">'John IS a designer.'</span>;
+ <span class="hljs-built_in">console</span>.log(isDesigner); <span class="hljs-comment">// John IS NOT a designer.</span>
+</pre>
+<h3 id="coding-challenge-3">Coding Challenge 3</h3>
+<p>John and his family went on a holiday and went to 3 different restaurants. The bills were $124, $48 and $268.</p>
+<p>To tip the waiter john created a simple tip calculator (as a function). He likes to tip 20% of the bill when
+the bill is less than $50, $15% when the bill is between $50 and $200 and 10% if the bill is more than $200.</p>
+<p>In the end John would like to have two arrays:</p>
+<ol>
+<li>Containing all three tips (one for each bill).</li>
+<li>Containing all three final paid amounts (bill + tip).</li>
+</ol>
+<p>Note: To calculate 20% of a value, simply multiply it with 20/100 = 0.2.</p>
+<pre class="prettyprint">    <span class="hljs-keyword">var</span> header = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'John\'s tipping program\n'</span>);
+    };
+    
+    <span class="hljs-keyword">var</span> printResults =  <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">bills</span>) </span>{
+    <span class="hljs-comment">// print out results</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Tips and Paid Amounts\n"</span>);
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; bills.length; j++) {
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Cost $'</span> + bills[j] + <span class="hljs-string">', tip $'</span> + tips[j].toFixed(<span class="hljs-number">2</span>) + <span class="hljs-string">'.'</span>);
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Paid amount $'</span> + paidAmounts[j].toFixed(<span class="hljs-number">2</span>) + <span class="hljs-string">'.'</span>);
+     }
+    };
+
+    <span class="hljs-keyword">var</span> calculator = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">bills</span>) </span>{
+     <span class="hljs-comment">// var tips = [];</span>
+     <span class="hljs-keyword">var</span> tip;
+     <span class="hljs-comment">// var paidAmounts = [];</span>
+     <span class="hljs-keyword">var</span> paidAmount;
+    
+     <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; bills.length; i++) {
+      <span class="hljs-keyword">switch</span> (bills[i]) {
+       <span class="hljs-keyword">case</span> bills[i] &lt; <span class="hljs-number">50</span>:
+        tip = element *<span class="hljs-number">0.2</span>;
+        <span class="hljs-keyword">break</span>;
+       <span class="hljs-keyword">case</span> bills[i] &gt;= <span class="hljs-number">50</span> &amp;&amp; bills[i] &lt; <span class="hljs-number">200</span>:
+       tip = bills[i]* <span class="hljs-number">0.15</span>;
+        <span class="hljs-keyword">break</span>;
+       <span class="hljs-keyword">default</span>:
+        tip = bills[i] * <span class="hljs-number">0.1</span>;
+      }
+      tips.push(tip);
+      paidAmount = bills[i] + tips[i];
+      paidAmounts.push(paidAmount);
+     }
+    };
+
+    <span class="hljs-comment">// global variables</span>
+    <span class="hljs-keyword">var</span> tips = [];
+    <span class="hljs-keyword">var</span> paidAmounts = [];   
+    <span class="hljs-keyword">var</span> bills = [<span class="hljs-number">124</span>, <span class="hljs-number">48</span>, <span class="hljs-number">268</span>]; 
+    
+    header();
+    
+    calculator(bills);
+    
+    printResults(bills);
+</pre>
+<h4 id="results">Results</h4>
+<blockquote>
+<p>John's tipping program</p>
+<p>Tips and Paid Amounts</p>
+<p>Cost $124, tip $12.40.<br>
+Paid amount $136.40.<br>
+Cost $48, tip $4.80.<br>
+Paid amount $52.80.<br>
+Cost $268, tip $26.80.<br>
+Paid amount $294.80.</p>
+</blockquote>
+<h2 id="objects-and-properties">Objects and properties</h2>
+<p>Key, value pairs.</p>
+<pre class="prettyprint">    <span class="hljs-comment">// a better way to make a consistent constructor object</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Person</span>(<span class="hljs-params">firstName, lastName, birthYear, family, job, isMarried</span>) </span>{
+        <span class="hljs-keyword">this</span>.firstName = firstName;
+        <span class="hljs-keyword">this</span>.lastName = lastName;
+        <span class="hljs-keyword">this</span>.birthYear = birthYear;
+        <span class="hljs-keyword">this</span>.family = family;
+        <span class="hljs-keyword">this</span>.job = job;
+        <span class="hljs-keyword">this</span>.isMarried = isMarried;
+    }
+</pre>
+<p>Problem with this is that I haven't figured out how to add a method into the above class.</p>
+<h3 id="object-literal">Object literal</h3>
+<p>This is probably the easiest way to create an object.</p>
+<pre class="prettyprint">    <span class="hljs-keyword">var</span> john = {
+        <span class="hljs-attr">firstName</span>: <span class="hljs-string">'John'</span>,
+        <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Smith'</span>,
+        <span class="hljs-attr">birthYear</span>: <span class="hljs-number">1990</span>,
+        <span class="hljs-attr">family</span>: [<span class="hljs-string">'Jane'</span>, <span class="hljs-string">'Mark'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Emily'</span>],
+        <span class="hljs-attr">job</span>: <span class="hljs-string">'teacher'</span>,
+        <span class="hljs-attr">isMarried</span>: <span class="hljs-literal">false</span>
+    };
+
+    <span class="hljs-built_in">console</span>.log(john);
+    <span class="hljs-built_in">console</span>.log();
+    <span class="hljs-built_in">console</span>.log(john.firstName);   <span class="hljs-comment">// John</span>
+    <span class="hljs-built_in">console</span>.log(john[<span class="hljs-string">'lastName'</span>]); <span class="hljs-comment">// Smith</span>
+    
+    <span class="hljs-keyword">var</span> x = <span class="hljs-string">'birthYear'</span>;
+    <span class="hljs-built_in">console</span>.log(x); <span class="hljs-comment">// 1990</span>
+    
+    john.job = <span class="hljs-string">'driver'</span>;
+    <span class="hljs-built_in">console</span>.log(john.job); <span class="hljs-comment">// driver</span>
+    
+    john.isMarried = <span class="hljs-literal">true</span>;
+    <span class="hljs-built_in">console</span>.log(john[<span class="hljs-string">'isMarried'</span>]); <span class="hljs-comment">// true</span>
+    <span class="hljs-built_in">console</span>.log();
+</pre>
+<p>.</p>
+<pre class="prettyprint"> <span class="hljs-keyword">var</span> alan = <span class="hljs-keyword">new</span> Person(<span class="hljs-string">'Alan'</span>, <span class="hljs-string">'Robson'</span>, <span class="hljs-string">'1952'</span>, [<span class="hljs-string">'Jen'</span>, <span class="hljs-string">'Ethan'</span>, <span class="hljs-string">'Justin'</span>], <span class="hljs-string">'Retired'</span>, <span class="hljs-literal">true</span>);
+
+ <span class="hljs-built_in">console</span>.log(alan);
+ <span class="hljs-built_in">console</span>.log();
+</pre>
+<h3 id="new-object-syntax">new Object syntax</h3>
+<pre class="prettyprint">    <span class="hljs-keyword">var</span> jane = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>();
+    jane.firstName = <span class="hljs-string">'Jane'</span>;
+    jane.lastName = <span class="hljs-string">'Jones'</span>;
+    jane.birthYear = <span class="hljs-number">1980</span>;
+    jane.family = [<span class="hljs-string">'Fred'</span>, <span class="hljs-string">'Mary'</span>, <span class="hljs-string">'Jill'</span>, <span class="hljs-string">'Jana'</span>];
+    jane.job = <span class="hljs-string">'nurse'</span>;
+    jane.isMarried = <span class="hljs-literal">false</span>; 
+    
+    <span class="hljs-built_in">console</span>.log(jane);
+    <span class="hljs-built_in">console</span>.log();
+</pre>
+<p>I can add all the objects that I created above into an array and dump them to the console together.</p>
+<pre class="prettyprint"> <span class="hljs-keyword">var</span> people = [john, alan, jane];
+ <span class="hljs-built_in">console</span>.log(people);
+</pre>
+<h3 id="objects-and-methods">Objects and methods</h3>
+<p>This is the easiest way to create a class with a method. The problem is that I can't use it for multiple objects without repeating the method code in each object.</p>
+<pre class="prettyprint">    <span class="hljs-keyword">var</span> john = {
+        <span class="hljs-attr">firstName</span>: <span class="hljs-string">'John'</span>,
+        <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Smith'</span>,
+        <span class="hljs-attr">birthYear</span>: <span class="hljs-number">1990</span>,
+        <span class="hljs-attr">family</span>: [<span class="hljs-string">'Jane'</span>, <span class="hljs-string">'Mark'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Emily'</span>],
+        <span class="hljs-attr">job</span>: <span class="hljs-string">'teacher'</span>,
+        <span class="hljs-attr">isMarried</span>: <span class="hljs-literal">false</span>,
+        <span class="hljs-attr">calcAge</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+         <span class="hljs-keyword">this</span>.age = <span class="hljs-number">2019</span> - <span class="hljs-keyword">this</span>.birthYear;
+        }
+    };
+     
+    <span class="hljs-built_in">console</span>.log(john.calcAge()); <span class="hljs-comment">// 29</span>
+</pre>
+<p><strong>Note:</strong></p>
+<p>Originally we set up the function like this.</p>
+<pre class="prettyprint"> calcAge: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">birthYear</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-number">2019</span> - <span class="hljs-keyword">this</span>.birthYear;
+ }
+</pre>
+<p>We then had to calculate the age by.</p>
+<pre class="prettyprint"> <span class="hljs-built_in">console</span>.log(john.calcAge(john.birthYear)); <span class="hljs-comment">// 29</span>
+</pre>
+<p>Fortunately we can improve this code.</p>
+<pre class="prettyprint">    <span class="hljs-keyword">this</span>.birthYear
+</pre>
+<p>will get the current birthYear in the Object literal so we don't have to calculate it ourselves.</p>
+<p>If we dump the Object with,</p>
+<pre class="prettyprint">    <span class="hljs-built_in">console</span>.log(john);
+</pre>
+<p>We won't get the calculated age. calcAge will return,</p>
+<pre class="prettyprint">    calcAge: [<span class="hljs-built_in">Function</span>: calcAge]
+</pre>
+<p>We can work around this by creating a variable in the function.</p>
+<pre class="prettyprint">    calcAge: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">birthYear</span>) </span>{
+      <span class="hljs-keyword">this</span>.age = <span class="hljs-number">2019</span> - <span class="hljs-keyword">this</span>.birthYear;
+    }
+</pre>
+<p>Now we can access the calculated age.</p>
+<pre class="prettyprint">    john.calcAge(); <span class="hljs-comment">// have to do this</span>
+    <span class="hljs-built_in">console</span>.log(john);
+</pre>
+<p>Also note that we have to run the calcAge function before we can access the .age property.</p>
+<p>This is because classes don't actually exist in JavaScript.</p>
+<h4 id="results">Results</h4>
+<blockquote>
+<p>undefined<br>
+{ firstName: 'John',<br>
+lastName: 'Smith',<br>
+birthYear: 1990,<br>
+family: [ 'Jane', 'Mark', 'Bob', 'Emily' ],<br>
+job: 'teacher',<br>
+isMarried: false,<br>
+calcAge: [Function: calcAge],<br>
+age: 29 }</p>
+</blockquote>
+<h3 id="coding-challenge-4">Coding Challenge 4</h3>
+<p>Let's remember the first coding challenge where Mark and John compared their BMI's. Let's now implement the same functionality with objects and methods.</p>
+<ol>
+<li>For each of them, create an object with properties for their full name, mass and height.</li>
+<li>then, add a method to each object to calculate the BMI. Save the BMI to the Object and also return it from the object.</li>
+<li>In the end, log to the console who has the highest BMI, together with the full name and the respective BMI. Don't forget that they might have the same BMI.</li>
+</ol>
+<p>BMI = mass / height^2 (mass in kg, height in metres).</p>
+<pre class="prettyprint">    <span class="hljs-keyword">var</span> mark =  {
+        <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Mark'</span>,
+        <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Smith'</span>,
+        <span class="hljs-attr">mass</span>: <span class="hljs-number">78</span>,
+        <span class="hljs-attr">height</span>: <span class="hljs-number">1.69</span>,
+        <span class="hljs-attr">calcBmi</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">this</span>.bmi = <span class="hljs-keyword">this</span>.mass / (<span class="hljs-keyword">this</span>.height * <span class="hljs-keyword">this</span>.height);
+     },
+     <span class="hljs-attr">calcName</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">this</span>.fullName = <span class="hljs-keyword">this</span>.firstName + <span class="hljs-string">' '</span> + <span class="hljs-keyword">this</span>.lastName;
+     }
+    }; 
+
+    <span class="hljs-keyword">var</span> john =  {
+        <span class="hljs-attr">firstName</span>: <span class="hljs-string">'John'</span>,
+        <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Bayley'</span>,
+        <span class="hljs-attr">mass</span>: <span class="hljs-number">92</span>,
+        <span class="hljs-attr">height</span>: <span class="hljs-number">1.95</span>,
+        <span class="hljs-attr">calcBmi</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">this</span>.bmi = <span class="hljs-keyword">this</span>.mass / (<span class="hljs-keyword">this</span>.height * <span class="hljs-keyword">this</span>.height);
+        },
+        <span class="hljs-attr">calcName</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">this</span>.fullName = <span class="hljs-keyword">this</span>.firstName + <span class="hljs-string">' '</span> + <span class="hljs-keyword">this</span>.lastName;
+        }
+    };
+
+    <span class="hljs-comment">// In JavaScript we have to manually run the methods for each object.</span>
+    mark.calcBmi();
+    mark.calcName();
+    
+    <span class="hljs-comment">// so now we can use the calculated properties</span>
+    <span class="hljs-built_in">console</span>.log(mark.fullName + <span class="hljs-string">"'s BMI: "</span> + mark.bmi);
+    john.calcBmi();
+    john.calcName();
+    
+    <span class="hljs-built_in">console</span>.log(john.fullName + <span class="hljs-string">"'s BMI: "</span> + john.bmi);
+    
+    <span class="hljs-keyword">if</span> (mark.bmi === john.bmi) {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Marks's BMI is the same as John's BMI."</span>);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mark.bmi &gt; john.bmi) {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Marks's BMI is higher than John's BMI."</span>);
+    }
+    <span class="hljs-keyword">else</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Marks's BMI is lower than John's BMI."</span>);
+    }
+</pre>
+<h4 id="results">Results</h4>
+<blockquote>
+<p>Mark Smith's BMI: 27.309968138370508<br>
+John Bayley's BMI: 24.194608809993426<br>
+Marks's BMI is higher than John's BMI.</p>
+</blockquote>
+<h3 id="loops-and-iteration">Loops and iteration</h3>
+<pre class="prettyprint">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) {
+        <span class="hljs-built_in">console</span>.log(i);
+    }
+</pre>
+<p>.</p>
+<pre class="prettyprint">    <span class="hljs-keyword">var</span> john = [<span class="hljs-string">'John'</span>, <span class="hljs-string">'Smith'</span>, <span class="hljs-number">1990</span>, <span class="hljs-string">'designer'</span>, <span class="hljs-literal">false</span>];
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; john.length; i++) {
+        <span class="hljs-built_in">console</span>.log(john[i]);  
+    }
+</pre>
+<h4 id="results">Results</h4>
+<blockquote>
+<p>John<br>
+Smith<br>
+1990<br>
+designer<br>
+false</p>
+</blockquote>
+<p>Another variation of looping.</p>
+<pre class="prettyprint">    <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">while</span> (i &lt; john.length) {
+        <span class="hljs-built_in">console</span>.log(john[i]);  
+        i++;
+    }
+</pre>
+<h3 id="continue-statement"><code>continue</code> statement</h3>
+<pre class="prettyprint">    <span class="hljs-keyword">var</span> john = [<span class="hljs-string">'John'</span>, <span class="hljs-string">'Smith'</span>, <span class="hljs-number">1990</span>, <span class="hljs-string">'designer'</span>, <span class="hljs-literal">false</span>];
+    
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; john.length; i++) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> john[i] !== <span class="hljs-string">'string'</span>) {
+            <span class="hljs-keyword">continue</span>;
+        }
+
+        <span class="hljs-built_in">console</span>.log(john[i]);  
+    }
+</pre>
+<p>I found an unusual instance with the code above. Normally I would wrap  <code>continue</code> in <em>{ continue; }</em>. This crashes and burns for some reason.</p>
+<p>I need to read more about <code>continue</code> and <code>break</code>.</p>
+<h4 id="results">Results</h4>
+<blockquote>
+<p>John<br>
+Smith<br>
+designer</p>
+</blockquote>
+<pre class="prettyprint">    <span class="hljs-keyword">var</span> john = [<span class="hljs-string">'John'</span>, <span class="hljs-string">'Smith'</span>, <span class="hljs-number">1990</span>, <span class="hljs-string">'designer'</span>, <span class="hljs-literal">false</span>];
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; john.length; i++) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> john[i] !== <span class="hljs-string">'string'</span>) {
+            <span class="hljs-keyword">break</span>;
+        }
+
+        <span class="hljs-built_in">console</span>.log(john[i]);  
+    }
+</pre>
+<h4 id="results">Results</h4>
+<blockquote>
+<p>John<br>
+Smith</p>
+</blockquote>
+<h3 id="coding-challenge-5">Coding Challenge 5</h3>
+<p>Remember the tip calculator challenge? Let's create a more advanced version using everything we learned!</p>
+<p>This time, John and his family went to 5 different restaurants. The bills were $124, $48, $268, $180 and $42.
+John likes to tip 20% of the bill when the bill is less than $50, 15% when the bill is between $50 and $200, and 10% if the bill is more than $200.</p>
+<p>Implement a tip calculator using objects and loops:</p>
+<ol>
+<li>Create an object with an array for the bill values</li>
+<li>Add a method to calculate the tip</li>
+<li>This method should include a loop to iterate over all the paid bills and do the tip calculations</li>
+<li>As an output, create 1) a new array containing all tips, and 2) an array containing final paid amounts (bill + tip). HINT: Start with two empty arrays [] as properties and then fill them up in the loop.</li>
+</ol>
+<p>EXTRA AFTER FINISHING: Mark's family also went on a holiday, going to 4 different restaurants. The bills were $77, $375, $110, and $45.
+Mark likes to tip 20% of the bill when the bill is less than $100, 10% when the bill is between $100 and $300, and 25% if the bill is more than $300 (different than John).</p>
+<ol start="5">
+<li>Implement the same functionality as before, this time using Mark's tipping rules</li>
+<li>Create a function (not a method) to calculate the average of a given array of tips. HINT: Loop over the array, and in each iteration store the current sum in a variable (starting from 0). After you have the sum of the array, divide it by the number of elements in it (that's how you calculate the average)</li>
+<li>Calculate the average tip for each family</li>
+<li>Log to the console which family paid the highest tips on average</li>
+</ol>
+<p>.</p>
+<pre class="prettyprint">    <span class="hljs-keyword">var</span> john = {
+        <span class="hljs-attr">fullName</span>: <span class="hljs-string">'John Smith'</span>,
+        <span class="hljs-attr">bills</span>: [<span class="hljs-number">124</span>, <span class="hljs-number">48</span>, <span class="hljs-number">268</span>, <span class="hljs-number">180</span>, <span class="hljs-number">42</span>],
+        <span class="hljs-attr">calcTips</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+         <span class="hljs-keyword">this</span>.tips = [];
+         <span class="hljs-keyword">this</span>.finalValues = [];
+
+         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.bills.length; i++) {
+            <span class="hljs-comment">// Determine percentage based on tipping rules</span>
+            <span class="hljs-keyword">var</span> percentage;
+            <span class="hljs-keyword">var</span> bill = <span class="hljs-keyword">this</span>.bills[i];
+
+            <span class="hljs-keyword">if</span> (bill &lt; <span class="hljs-number">50</span>) {
+                percentage = <span class="hljs-number">0.2</span>;
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (bill &gt;= <span class="hljs-number">50</span> &amp;&amp; bill &lt; <span class="hljs-number">200</span>) {
+                percentage = <span class="hljs-number">0.15</span>;
+            } <span class="hljs-keyword">else</span> {
+                percentage = <span class="hljs-number">0.1</span>;
+            }
+
+            <span class="hljs-comment">// Add results to the corresponding arrays</span>
+            <span class="hljs-keyword">this</span>.tips[i] = bill * percentage;
+            <span class="hljs-keyword">this</span>.finalValues[i] = bill + bill * percentage;
+         }
+        }
+    };
+
+    <span class="hljs-keyword">var</span> mark = {
+        <span class="hljs-attr">fullName</span>: <span class="hljs-string">'Mark Miller'</span>,
+        <span class="hljs-attr">bills</span>: [<span class="hljs-number">77</span>, <span class="hljs-number">475</span>, <span class="hljs-number">110</span>, <span class="hljs-number">45</span>],
+        <span class="hljs-attr">calcTips</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">this</span>.tips = [];
+            <span class="hljs-keyword">this</span>.finalValues = [];
+            
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.bills.length; i++) {
+                <span class="hljs-comment">// Determine percentage based on tipping rules</span>
+                <span class="hljs-keyword">var</span> percentage;
+                <span class="hljs-keyword">var</span> bill = <span class="hljs-keyword">this</span>.bills[i];
+                <span class="hljs-keyword">if</span> (bill &lt; <span class="hljs-number">100</span>) {
+                 percentage = <span class="hljs-number">0.2</span>;
+                } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (bill &gt;= <span class="hljs-number">100</span> &amp;&amp; bill &lt; <span class="hljs-number">300</span>) {
+                 percentage = <span class="hljs-number">0.1</span>;
+                } <span class="hljs-keyword">else</span> {
+                 percentage = <span class="hljs-number">0.25</span>;
+                }
+                
+                <span class="hljs-comment">// Add results to the corresponding arrays</span>
+                <span class="hljs-keyword">this</span>.tips[i] = bill * percentage;
+                <span class="hljs-keyword">this</span>.finalValues[i] = bill + bill * percentage;
+            }
+        }
+    };
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">calcAverage</span>(<span class="hljs-params">tips</span>) </span>{
+        <span class="hljs-keyword">var</span> sum = <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; tips.length; i++) {
+             sum = sum + tips[i];
+        }
+        
+        <span class="hljs-keyword">return</span> sum / tips.length;
+    }
+
+    <span class="hljs-comment">// Do the calculations</span>
+    john.calcTips();
+    mark.calcTips();
+    
+    john.average = calcAverage(john.tips);
+    mark.average = calcAverage(mark.tips);
+    
+    <span class="hljs-built_in">console</span>.log(john, mark);
+    <span class="hljs-built_in">console</span>.log();
+    
+    <span class="hljs-keyword">if</span> (john.average &gt; mark.average) {
+        <span class="hljs-built_in">console</span>.log(john.fullName + <span class="hljs-string">'\'s family pays higher tips, with an average of $'</span> + john.average);
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mark.average &gt; john.average) {
+        <span class="hljs-built_in">console</span>.log(mark.fullName + <span class="hljs-string">'\'s family pays higher tips, with an average of $'</span> + mark.average);
+    }
+</pre>
+<h4 id="results">Results</h4>
+<blockquote>
+<p>{ fullName: 'John Smith',<br>
+bills: [ 124, 48, 268, 180, 42 ],<br>
+calcTips: [Function: calcTips],<br>
+tips: [ 18.599999999999998, 9.600000000000001, 26.8, 27, 8.4 ],<br>
+finalValues: [ 142.6, 57.6, 294.8, 207, 50.4 ],<br>
+average: 18.080000000000002 } { fullName: 'Mark Miller',<br>
+bills: [ 77, 475, 110, 45 ],<br>
+calcTips: [Function: calcTips],<br>
+tips: [ 15.4, 118.75, 11, 9 ],<br>
+finalValues: [ 92.4, 593.75, 121, 54 ],<br>
+average: 38.5375 }</p>
+<p>Mark Miller's family pays higher tips, with an average of $38.5375</p>
+</blockquote>
+
+</div><!-- starter-template -->
+</div><!-- /.container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"/>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+</body>
+</html>
