@@ -411,8 +411,8 @@ Different ways of creating an array. Arrays are zero based.
 
 #### Results
 
-> john
-> [ 'john', 'Mark', 'Mary', 'Alan', 'Ethan', 'James', 'Charley' ]
+> john      
+> [ 'john', 'Mark', 'Mary', 'Alan', 'Ethan', 'James', 'Charley' ]       
 > 7
 
 **or**
