@@ -42,6 +42,12 @@ blockquote {
     padding-left: 1rem;
     page-break-inside: avoid;
 }
+:target:before {
+  content: "";
+  display: block;
+  height: 80px; /* adjust this value to your needs */
+  margin: -80px 0 0; /* this should be a negative value of the height above */
+}
 </style>
 </head>
 <body>
@@ -73,7 +79,7 @@ blockquote {
     <div class="starter-template">
 
 
-<h1 id="section-2-javascript-language-basics">Section 2: JavaScript Language Basics</h1>
+<h1 id="section-2-javascript-language-basics">JavaScript Language Basics</h1>
 <p>This is revision of the basic features in JavaScript.</p>
 <h3 id="simple-assignment">simple assignment</h3>
 <pre class="prettyprint">    <span class="hljs-keyword">var</span> firstName = <span class="hljs-string">"John"</span>;
